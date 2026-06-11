@@ -32,7 +32,6 @@ LICENCAS = {
     "ambigua":     "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
 }
 
-# --- Funções auxiliares ---
 
 def criar_pastas():
     for categoria in LIMITES:
@@ -45,7 +44,6 @@ def guardar_imagem(img: Image.Image, destino: Path) -> bool:
     try:
         if img.mode != "RGB":
             img = img.convert("RGB")
-        # Redimensiona se for muito grande (poupa espaço e acelera o Gemini)
         if max(img.size) > 1920:
             img.thumbnail((1920, 1920), Image.LANCZOS)
         img.save(destino, "JPEG", quality=90)
@@ -67,12 +65,11 @@ def imagens_validas_de_zip(zip_path: str, limite: int, destino: str, categoria: 
     print(f"\nA extrair {categoria} de {zip_path}...")
 
     with zipfile.ZipFile(zip_path, "r") as zf:
-        # Lista apenas ficheiros de imagem dentro do ZIP
         ficheiros = [
             f for f in zf.namelist()
             if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp"))
-            and not f.startswith("__MACOSX")  # ignora lixo do macOS
-            and "/labels/" not in f           # ignora anotações
+            and not f.startswith("__MACOSX")
+            and "/labels/" not in f
         ]
 
         if not ficheiros:
@@ -88,14 +85,13 @@ def imagens_validas_de_zip(zip_path: str, limite: int, destino: str, categoria: 
 
             nome_destino = destino_path / f"{categoria}_{guardadas:04d}.jpg"
 
-            # Lê a imagem do ZIP em memória
             try:
                 with zf.open(nome_ficheiro) as f:
                     from io import BytesIO
                     img = Image.open(BytesIO(f.read()))
-                    img.load()  # força carregamento antes de fechar o ZIP
+                    img.load()
             except Exception as e:
-                continue  # imagem corrompida, passa à próxima
+                continue
 
             if guardar_imagem(img, nome_destino):
                 registos.append({
@@ -122,7 +118,6 @@ def descarregar_sku110k(limite: int, destino: str, categoria: str) -> list[dict]
     registos = []
     destino_path = Path(destino)
 
-    # Verifica se já tem imagens suficientes (evita re-download)
     existentes = list(destino_path.glob("*.jpg"))
     if len(existentes) >= limite:
         print(f"\n{categoria}: ja tem {len(existentes)} imagens, a saltar download")
@@ -152,6 +147,11 @@ def descarregar_sku110k(limite: int, destino: str, categoria: str) -> list[dict]
                 break
 
             nome_destino = destino_path / f"{categoria}_{guardadas:04d}.jpg"
+            
+            if nome_destino.exists():
+                guardadas += 1
+                pbar.update(1)
+                continue
 
             try:
                 import base64
@@ -159,17 +159,17 @@ def descarregar_sku110k(limite: int, destino: str, categoria: str) -> list[dict]
 
                 raw = sample["image"]
 
-                # O dataset pode ter a imagem como bytes ou como dict com "bytes"
                 if isinstance(raw, dict) and "bytes" in raw:
                     img_bytes = raw["bytes"]
                     if isinstance(img_bytes, str):
                         img_bytes = base64.b64decode(img_bytes)
                     img = Image.open(BytesIO(img_bytes))
-                elif hasattr(raw, "save"):
+                elif isinstance(raw, dict) and "path" in raw:
+                    img = raw["array"] if "array" in raw else Image.open(raw["path"])
+                elif hasattr(raw, "convert"):
                     img = raw
                 else:
-                    erros += 1
-                    continue
+                    img = Image.open(BytesIO(raw))
 
                 img.load()
 
@@ -198,7 +198,6 @@ def descarregar_sku110k(limite: int, destino: str, categoria: str) -> list[dict]
 
 
 def gerar_dataset_info(todos_registos: list[dict]):
-
     resumo = {}
     for r in todos_registos:
         cat = r["categoria"]
@@ -226,7 +225,7 @@ def verificar_estado_final():
     print("RESUMO DO DATASET")
 
     total = 0
-    alvo_total = sum(LIMITES.values()) # 500 imagens no total
+    alvo_total = sum(LIMITES.values())
     
     for categoria, limite in LIMITES.items():
         pasta = Path(f"data/images/{categoria}")
@@ -243,7 +242,6 @@ def verificar_estado_final():
         print("\nAviso: Ainda existem categorias em falta. Verifica os ficheiros ZIP em data/zips/")
 
 
-# --- Execução Principal ---
 
 if __name__ == "__main__":
     print("TP2 LIACD - Fase 0: Construção do Dataset")
@@ -252,7 +250,6 @@ if __name__ == "__main__":
 
     todos_registos = []
 
-    # 1. SKU-110K via streaming - Normal (150 imagens)
     registos = descarregar_sku110k(
         limite=LIMITES["normal"],
         destino="data/images/normal",
@@ -260,7 +257,6 @@ if __name__ == "__main__":
     )
     todos_registos.extend(registos)
 
-    # 2. Roboflow ZIPs - Vazia, Planograma, Desordenada e Ambigua (Ciclo automático)
     for categoria, zip_path in ZIPS.items():
         registos = imagens_validas_de_zip(
             zip_path=zip_path,
@@ -270,9 +266,7 @@ if __name__ == "__main__":
         )
         todos_registos.extend(registos)
 
-    # 3. Gera ficheiro de documentação
     if todos_registos:
         gerar_dataset_info(todos_registos)
 
-    # 4. Mostra estado final
     verificar_estado_final()
