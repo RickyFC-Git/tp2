@@ -1,0 +1,3521 @@
+{
+  "gerado_em": "2026-06-11T15:48:15.571582",
+  "total_imagens": 500,
+  "distribuicao": {
+    "normal": 150,
+    "vazia": 100,
+    "planograma": 100,
+    "desordenada": 80,
+    "ambigua": 70
+  },
+  "licencas": {
+    "normal": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+    "vazia": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+    "planograma": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+    "desordenada": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+    "ambigua": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)"
+  },
+  "notas": "Dataset construido de forma totalmente automatizada para o TP2 de LIACD. A categoria 'ambigua' foi preenchida recorrendo a imagens propositadamente desfocadas.",
+  "imagens": [
+    {
+      "filename": "normal_0000.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[0]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0001.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[1]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0002.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[2]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0003.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[3]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0004.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[4]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0005.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[5]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0006.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[6]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0007.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[7]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0008.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[8]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0009.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[9]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0010.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[10]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0011.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[11]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0012.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[12]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0013.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[13]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0014.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[14]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0015.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[15]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0016.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[16]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0017.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[17]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0018.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[18]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0019.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[19]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0020.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[20]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0021.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[21]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0022.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[22]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0023.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[23]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0024.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[24]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0025.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[25]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0026.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[26]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0027.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[27]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0028.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[28]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0029.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[29]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0030.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[30]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0031.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[31]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0032.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[32]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0033.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[33]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0034.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[34]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0035.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[35]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0036.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[36]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0037.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[37]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0038.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[38]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0039.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[39]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0040.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[40]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0041.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[41]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0042.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[42]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0043.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[43]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0044.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[44]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0045.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[45]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0046.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[46]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0047.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[47]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0048.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[48]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0049.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[49]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0050.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[50]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0051.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[51]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0052.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[52]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0053.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[53]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0054.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[54]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0055.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[55]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0056.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[56]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0057.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[57]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0058.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[58]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0059.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[59]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0060.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[60]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0061.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[61]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0062.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[62]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0063.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[63]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0064.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[64]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0065.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[65]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0066.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[66]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0067.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[67]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0068.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[68]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0069.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[69]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0070.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[70]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0071.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[71]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0072.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[72]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0073.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[73]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0074.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[74]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0075.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[75]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0076.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[76]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0077.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[77]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0078.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[78]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0079.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[79]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0080.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[80]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0081.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[81]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0082.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[82]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0083.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[83]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0084.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[84]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0085.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[85]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0086.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[86]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0087.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[87]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0088.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[88]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0089.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[89]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0090.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[90]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0091.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[91]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0092.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[92]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0093.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[93]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0094.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[94]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0095.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[95]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0096.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[96]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0097.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[97]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0098.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[98]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0099.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[99]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0100.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[100]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0101.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[101]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0102.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[102]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0103.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[103]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0104.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[104]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0105.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[105]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0106.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[106]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0107.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[107]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0108.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[108]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0109.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[109]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0110.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[110]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0111.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[111]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0112.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[112]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0113.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[113]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0114.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[114]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0115.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[115]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0116.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[116]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0117.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[117]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0118.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[118]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0119.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[119]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0120.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[120]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0121.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[121]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0122.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[122]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0123.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[123]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0124.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[124]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0125.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[125]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0126.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[126]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0127.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[127]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0128.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[128]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0129.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[129]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0130.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[130]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0131.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[131]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0132.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[132]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0133.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[133]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0134.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[134]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0135.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[135]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0136.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[136]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0137.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[137]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0138.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[138]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0139.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[139]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0140.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[140]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0141.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[141]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0142.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[142]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0143.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[143]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0144.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[144]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0145.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[145]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0146.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[146]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0147.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[147]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0148.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[148]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "normal_0149.jpg",
+      "categoria": "normal",
+      "origem": "SKU-110K (Goldman et al., 2019) - licença académica, uso em investigação",
+      "fonte_original": "SKU-110K train[149]",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0000.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1035_jpg.rf.efe78fe07acef97a710ed494b79f1d35.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0001.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1035_jpg.rf.ee7ea6fd6e7228eda03d471308669305.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0002.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1162_jpg.rf.e1d48d542fe6e36e65a0d0653163844f.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0003.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_400_jpg.rf.e464b605e37bfe942c8b056964bf1489.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0004.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1077_jpg.rf.cab0024c73d7436c57a724787502530d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0005.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_377_jpg.rf.2d7bad89de6067630ded34cf3f4f4a0d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0006.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1072_jpg.rf.1d2d759c21f7327ad9e002458982e1e2.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0007.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_36_jpg.rf.b9b08742326cc5deb4176660f9a98326.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0008.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1167_jpg.rf.87f234a4177c6c6f6207c5fb77a54ca0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0009.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1027_jpg.rf.86f54bf88731947d1de5da0be5944452.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0010.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1150_jpg.rf.63b98cd464a086b2805a246cd3309906.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0011.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_370_jpg.rf.2ad6c09936e9ac20b916fefbcf426031.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0012.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_426_jpg.rf.2bf475dde825edb529191d04014f5efb.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0013.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1141_jpg.rf.9717913d85c8000821f93e8e19be53b7.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0014.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_286_jpg.rf.bb12b43955b672a1cb848d9524ea82b4.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0015.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1105_jpg.rf.98a11ea07e32cbe07d695b10b513f0da.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0016.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_371_jpg.rf.2ff8b0f5373a5aef04722dd119f4a198.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0017.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_52_jpg.rf.ea7a37d3c8705ead174c9bd7b5ac1d40.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0018.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_333_jpg.rf.313c2c6c11d9162ff6046ed4562c679b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0019.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_42_jpg.rf.bf4e7ad605955b6e812ba4a33660edb9.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0020.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1182_jpg.rf.738a377e14cd16fa94c4e6484410cca3.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0021.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_14_jpg.rf.5b11f971ec845e2aa025d889ce1565b7.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0022.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_310_jpg.rf.8516691c254cdf1e6f06d36cebb25d77.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0023.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1167_jpg.rf.e8c9ffbf9dd5e5e06b20ae8b9224c481.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0024.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_339_jpg.rf.33cce2a06ce11b49bbcecf37b55ab28f.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0025.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_104_jpg.rf.e4535550c0a3b3cb7203259f87568692.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0026.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_328_jpg.rf.d6f07a93ad1f6b502d5d64fb387c3917.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0027.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1162_jpg.rf.e0d0677a9f4d2260ea9c5efab05ba051.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0028.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_279_jpg.rf.7b5ea2d695c853cbc57b38c5cc223300.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0029.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1027_jpg.rf.863c1977521c857748ac81559fd50b39.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0030.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_429_jpg.rf.acf22b5a05ed8ea612aa312edb356440.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0031.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_14_jpg.rf.a19f36e3a9a66ac73309a192f482d880.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0032.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_414_jpg.rf.0ab17c529f422c26f26d8236adf063d6.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0033.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1072_jpg.rf.fd075f54cdcbd64eb2f11917a6aaeaae.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0034.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_421_jpg.rf.4412447c1e5b3c9b23157b2f00df09d1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0035.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_364_jpg.rf.1f872871a349aedb8bd9693a21c9eed0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0036.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_283_jpg.rf.aca3d175f9094704f47461b0c64f9fe7.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0037.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_150_jpg.rf.7bc0369545f8c41979ccbb82e7ca1754.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0038.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1096_jpg.rf.217e7968de352257867c7f6a9eb7c1c6.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0039.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1008_jpg.rf.ef079084ebfdb1435a46b7ce00939ac8.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0040.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_371_jpg.rf.568a67672c45899a9e1b3a30c221260e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0041.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_127_jpg.rf.f2da84a3acb675b3e616e89a4134317c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0042.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1182_jpg.rf.62335266d4243df356aeece3bd13db98.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0043.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_290_jpg.rf.f79d01aa2a77ee2c53b4de412a935238.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0044.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_457_jpg.rf.62cc2ea7af39028bf10f7aeae68accd9.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0045.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1027_jpg.rf.ba4561f63d73b55d314cd1f26ca2d65b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0046.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1106_jpg.rf.efa85f5094e97b256921468c6cf88968.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0047.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_464_jpg.rf.b48cb1d516d3a0a9d05086f36bdc0533.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0048.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_398_jpg.rf.a25b48c1309a71ba82328836bfae007c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0049.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1148_jpg.rf.d4e8557266caa91b0b8f8555661f3ced.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0050.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_134_jpg.rf.9cb103823cd0d1618ebea1304c650b42.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0051.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_425_jpg.rf.ecafa2756dbc05bf1dc8f0b05bf16496.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0052.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_372_jpg.rf.4a206e62a93fc775a9f417ca29184d59.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0053.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1045_jpg.rf.28125b26a021b908d3a8a5c926f643d9.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0054.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1035_jpg.rf.d5f3fe7c9fc6b37c1c9f7b2ac3abb4a6.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0055.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_315_jpg.rf.ed947306a61a471d5cef1729fa982d6a.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0056.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_415_jpg.rf.afdb880bb82df9e6930ae14434a76e89.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0057.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_378_jpg.rf.d17616866cf28b7b85345a42206b7ccc.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0058.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_104_jpg.rf.9a5545dd767e5f2191b436248d76c1fd.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0059.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_460_jpg.rf.0493721c5967f14ce9847bda8f0742a1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0060.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1030_jpg.rf.78c1325395861ca6a3666a718c774c36.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0061.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_408_jpg.rf.68816279a5b0cfa41fe44bd9e8479992.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0062.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_301_jpg.rf.da5ccaca62c8a4dae6d3ebc47563b11b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0063.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_22_jpg.rf.3ac60658233e56cd3a76b1620f96e7ae.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0064.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1067_jpg.rf.dc1d1b9bcf4e66ed7b998604c9c2e78b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0065.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1007_jpg.rf.97bf75d69d1423c38b19836502597ad5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0066.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_328_jpg.rf.2ed5637c9799ecb33b142a88c6a17233.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0067.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1162_jpg.rf.caf9b849273e2fab7535ec83d1510728.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0068.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_424_jpg.rf.0c02486e916408fcb0e750dc41d45b6e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0069.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_453_jpg.rf.834c574f1d86b5b6966b03e7e6e6f16a.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0070.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_90_jpg.rf.58140b10a26e1fd22cce83d8d45f6f01.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0071.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_1105_jpg.rf.a35e9b87cfc867bdc81659f73b9a1962.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0072.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1007_jpg.rf.d1a9d453346de6af9a867545d133c189.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0073.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_82_jpg.rf.17eb27919fecf80132fd7456a8efebc2.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0074.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_115_jpg.rf.e361ef11c3f36288b3e80bd4646ba477.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0075.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_466_jpg.rf.8ae9141b8ce78a7445a0a0e3fdc2752d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0076.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1088_jpg.rf.c179feb2c91b731b56fafa1d36be567f.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0077.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_321_jpg.rf.f20119038759aba1b56de43dd0cd6eb5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0078.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_488_jpg.rf.0258343a28fd6d79adbbd7cfc1652c9e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0079.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "test/test2020_22_jpg.rf.3b968cf867655a2704d41eed2ff8abfc.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0080.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1150_jpg.rf.fe571d5a6d7d7d7fb47cea3060353917.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0081.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1088_jpg.rf.504c23f8bec21d6a7cf5505760273bb9.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0082.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_67_jpg.rf.cfffdac14e4c443f179cef36254a2347.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0083.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_246_jpg.rf.73ed7367205df11960887d06e4f5710a.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0084.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_321_jpg.rf.8236349fab332b53d7f29cc2e2a72aca.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0085.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_120_jpg.rf.d980ab91a3e468dfea26384bb9b365a0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0086.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_250_jpg.rf.30d98a5a1fdeccfb7cc22d9ab9746e56.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0087.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_1172_jpg.rf.58f98ff98ed6819c5d0f7bf119a70079.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0088.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_415_jpg.rf.eaaaff89925a6f591a30de64727968c3.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0089.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_178_jpg.rf.c2c4bdaf58b6dcf708b6ad77863464ec.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0090.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_211_jpg.rf.c628f5415c3c37e075aa83fd2c0b64fa.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0091.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_127_jpg.rf.3f6d74cb99a46d02c92bdd2a3d904e1d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0092.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_120_jpg.rf.c80e9b596de2075750d4a00ed4444cd4.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0093.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_337_jpg.rf.3ca3ddb2cf4163e3fb37f0e73eaeeb32.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0094.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_240_jpg.rf.c4dc5e76cf2138be816b7e95547fb4c1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0095.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_449_jpg.rf.fd12811ea130cd507133ab4014475d6d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0096.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_477_jpg.rf.fbacf2126ca582b68cb2db64a3aa3609.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0097.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_10_jpg.rf.9aca374c42fd46d8189368484d3a7958.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0098.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_389_jpg.rf.ebe2d46754b85934a3098a16a7d8d45a.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "vazia_0099.jpg",
+      "categoria": "vazia",
+      "origem": "Roboflow Universe: fyp-ormnr/supermarket-empty-shelf-detector - open source",
+      "fonte_original": "train/test2020_127_jpg.rf.9d4a8e86ddd4899335a496015ed5220c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0000.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST006_jpg.rf.62499afeabad6770ea71ebebf53f6844.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0001.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST007_jpg.rf.546dc969c23b4761668583e9180dc744.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0002.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST010_jpg.rf.0d9adf8618d11d9f628bf80fa39a9852.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0003.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142336_BURST019_jpg.rf.68741f57f22620d5ea79e21c59f635ee.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0004.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142350_BURST013_jpg.rf.bf598f9b6e5741aeaca1a86f2c4c535e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0005.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142336_BURST008_jpg.rf.f15eae9702fe0287b15d98466305d7ab.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0006.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST009_jpg.rf.0ca132305e136db19493077e77f0606b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0007.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142336_BURST005_jpg.rf.c375e04caf547d462bed744ddc7b7ee9.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0008.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142333_BURST013_jpg.rf.c5e07d10eaa566694b5fabbfa84a3de2.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0009.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST006_jpg.rf.70415be55039b9387942c3c69b2d953a.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0010.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST001_jpg.rf.865c17700e62ffd5ecea33f4e9a53a63.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0011.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST003_jpg.rf.90b9ab979f011e3e7686e9c977113625.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0012.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST004_jpg.rf.f667286b3f06af087f61bddb7f565787.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0013.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142403_BURST015_jpg.rf.e8b90efc5ad7af81510e99c9708398d0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0014.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142333_BURST017_jpg.rf.8e3709b79db2f09cd7c5bb97a87b25a0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0015.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST013_jpg.rf.525426b9b6fb81904b1b1c4a3ec3fb34.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0016.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142350_BURST006_jpg.rf.8ebf8d0ea7ef2ad3fd2eb0c22ecad0f8.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0017.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142615_BURST000_COVER_jpg.rf.ab6d7e0937eb5777889932a6488887ee.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0018.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST000_COVER_jpg.rf.c4fbb5f603a1a104a03b69319db27521.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0019.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST016_jpg.rf.23cdcdefc23df28d5cc263d3efa19593.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0020.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142615_BURST001_jpg.rf.72f163bd4c0c8529e0242267ae790021.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0021.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST004_jpg.rf.8c79cf7323e6fe69c6cb4f7ac61cb659.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0022.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST016_jpg.rf.fcf745d17b691984ea7c3e757ae486a1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0023.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST014_jpg.rf.48be19a072de6fc5cf5f177554775188.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0024.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142336_BURST000_COVER_jpg.rf.6d17ef85c061b473e64e6e99b3ae1c23.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0025.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST010_jpg.rf.c725b1e0f409a8bbc814a4f791e825ef.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0026.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142350_BURST004_jpg.rf.cf3a327e4cbab4b9377fac4be8d2d3ad.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0027.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142616_BURST002_jpg.rf.2d8b88769b0cd249dd41059603a30d83.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0028.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST003_jpg.rf.f478ec12da5bcd0d8a56579cb964120d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0029.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST015_jpg.rf.f6820fd8edb1aab9c8c65cfc2d0ce009.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0030.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142336_BURST003_jpg.rf.5f58b470da1940a269d7c75a087d32b8.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0031.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST011_jpg.rf.97d4d74dc3fe13d8642af936c3d5ff3b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0032.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142336_BURST011_jpg.rf.803dc20cd86d212ed31c4224edcbfb06.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0033.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST012_jpg.rf.a9f6d7a9f9af4d70117fd55f7149a599.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0034.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142616_BURST003_jpg.rf.e20d9a9f50fbb865e15530c8c605288c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0035.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142403_BURST008_jpg.rf.8f9043b4819a2e06e3792169e350ece9.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0036.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST017_jpg.rf.8ce205edff79a385e1290bda261ddb2d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0037.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST010_jpg.rf.47eee5a3c7a9c53a3e00555f353a09e0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0038.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST013_jpg.rf.815eb2389b92aa3fb101f9be952021db.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0039.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST001_jpg.rf.b5cbbb878d982444c7cbbcd5fbefa87d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0040.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142403_BURST006_jpg.rf.0f1560f23e3782ce94e5eb043c25dd9b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0041.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST008_jpg.rf.b121e3dd21c232246ea5c977b8701393.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0042.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142403_BURST014_jpg.rf.7f761d8a925e706e9fe7a0f5d6ec1d38.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0043.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST012_jpg.rf.8206954f02a420637bfbaff908a931aa.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0044.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST003_jpg.rf.ff405e86a31bcefd00e3f8f145e585e5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0045.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142336_BURST007_jpg.rf.35cc86716398d0544105fb20d3a188a3.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0046.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST009_jpg.rf.66608c1c3b389e2edb6965afc44f3d4f.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0047.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST018_jpg.rf.6a43a1d170e9de83a1b8ad13048701c4.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0048.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST008_jpg.rf.bf8ba988c1eed2b2fcdec95efa233e58.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0049.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST017_jpg.rf.c53e729ec9ccb1f6c3130f5dad45d79e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0050.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142336_BURST010_jpg.rf.8dda06c27542b3802ea42a01557c9b2c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0051.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142333_BURST018_jpg.rf.477a9bc34b50bb912724546ad73cc3e7.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0052.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142350_BURST007_jpg.rf.1432166c4122ed9222dc83f7ce923254.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0053.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST017_jpg.rf.5170a614b52cb91fde79b508817ec5a8.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0054.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST012_jpg.rf.d0745cd862a53dd4b422521051da80d0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0055.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142350_BURST001_jpg.rf.5b7e65dd87d111367faa0f7c54ef2f07.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0056.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142350_BURST011_jpg.rf.e86809481ac3542c19045dfc25e36fde.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0057.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST014_jpg.rf.95a34d9369a2aac67b3b525461acb8e0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0058.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142403_BURST011_jpg.rf.f3beaa2521373ad28e2cb8c6729742c4.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0059.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142403_BURST009_jpg.rf.1f7346a922b2f688b0b2fb9facfa8266.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0060.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST002_jpg.rf.c2e7d30da457ebfefe984663a7a580d4.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0061.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142350_BURST003_jpg.rf.4255b55f8cabf15c183af817c4969f08.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0062.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142350_BURST005_jpg.rf.63dfe9d0244a03131646f3ef1eb76cc6.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0063.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142333_BURST010_jpg.rf.1579a8f2d33f7d27d977e7d137dafbb8.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0064.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST009_jpg.rf.04ab4690a8713708186c4b990182b44b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0065.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST005_jpg.rf.ce474889d26f4c7e4c0ec8c97d96e111.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0066.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST006_jpg.rf.3a5fd8ee81ed4be153cd4c6bde532460.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0067.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142336_BURST017_jpg.rf.1e388a49ee4c50d7084f5f97472bf826.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0068.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST001_jpg.rf.565ad02a0fa559e026fbd153a80e9f3b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0069.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST015_jpg.rf.ac4bf65eb6c178eaa18d3788f5e532b0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0070.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142350_BURST012_jpg.rf.f2a6187d67326cc24452169b4cc62d3d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0071.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142333_BURST003_jpg.rf.410a9595b54c080c03b02053e4894876.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0072.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST011_jpg.rf.212d9f149bc784bcd4e924e5ecf6f32d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0073.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST014_jpg.rf.1afc9377b913dcc0905c821609715f58.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0074.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142333_BURST002_jpg.rf.7795a428c1bc29f2544ba060cd13ad5f.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0075.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142403_BURST005_jpg.rf.6b647e9fcb906afe12c1f9f70e2bad0d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0076.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142333_BURST000_COVER_jpg.rf.7560855a13c5741f26bee7fcc9a7ce5e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0077.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST016_jpg.rf.787a9cd2db677159df3813c4eafb3b54.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0078.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142616_BURST009_jpg.rf.2b58d4f112778c729a2b32ca79a31956.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0079.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST005_jpg.rf.37e7aa9af4e7093965639f735740e958.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0080.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142400_BURST000_COVER_jpg.rf.25b7072fffc03736d10e7242d01cb10e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0081.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142340_BURST011_jpg.rf.ed4a00e36649982734f37dd3746b3d75.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0082.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142343_BURST000_COVER_jpg.rf.25a9c62f9125e8476b9c8adf9b841fcc.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0083.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142403_BURST010_jpg.rf.a5d7b40c6c14308816ea52d3d57b00ee.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0084.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST005_jpg.rf.2c3ed4a33439e292aeeb8715f0007294.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0085.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142333_BURST012_jpg.rf.3de052bb0b8be53b1acc0180536d74ee.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0086.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142357_BURST009_jpg.rf.c3500890262bc7e71d3122a74641f5f8.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0087.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "train/IMG20250320142333_BURST006_jpg.rf.e8d12687d154369f8c232ae3fa06f2d2.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0088.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142350_BURST000_COVER_jpg.rf.1a217b3da48a1d2586e6e50150b4f6f9.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0089.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142340_BURST018_jpg.rf.1f1ea68e5a2bc8c2371f7fa6fe08cba0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0090.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142336_BURST004_jpg.rf.a0194ca1c36d530bc648b17315446842.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0091.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142340_BURST015_jpg.rf.d8be32c83ccdb979eea167888e4b3cae.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0092.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142340_BURST014_jpg.rf.d2101db7e614f8b20b374fa509611583.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0093.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142343_BURST004_jpg.rf.ba03cd0d019feef5d0581381481d3b49.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0094.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142333_BURST016_jpg.rf.c8f7d5640c0943ce93db74acbea9dcc5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0095.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142357_BURST019_jpg.rf.db0ceedb528c8dc025a35f4976100bed.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0096.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142357_BURST010_jpg.rf.8cd462d438e108c7b2751d986dc1fd04.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0097.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142403_BURST016_jpg.rf.7b0deeac981bb5871c78072064488911.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0098.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142350_BURST002_jpg.rf.f6aaa6d294e2c186b8726745c16011bd.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "planograma_0099.jpg",
+      "categoria": "planograma",
+      "origem": "Roboflow Universe: cardatasetcombine/planogram-compliance-x61hg - open source",
+      "fonte_original": "valid/IMG20250320142343_BURST016_jpg.rf.51833a9c8167c0758c3f0a35217d895f.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0000.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_1069-9343874886395_jpg.rf.0bd8fdbda2631acfce2a06e82cbcf5a0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0001.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_21_rotada_30_ruido_jpg.rf.730096343adc75573d542191d9b70d1d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0002.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/Aimg_371_jpg.rf.4038a3c09d808b851971b7b4e95c86a5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0003.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/frame_249_jpg.rf.1e4f96f28cf151d63f2c8b1435d2d368.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0004.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_5_rotada_110_ruido_jpg.rf.4736d2785b3893cd25796ce5024e7eda.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0005.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_0_rotada_150_ruido_jpg.rf.0bbeb1002da800bd5383df85e9556ced.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0006.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/12imagen_1077-309611665523_jpg.rf.2c2ff18dd42eb74932093ea12682dac3.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0007.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_9_rotada_120_ruido_jpg.rf.3cd3f0da78e7bb5b62483711a7048808.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0008.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/Aimg_385_jpg.rf.2d49fbf3d104f914af2c1d6ce4a190d1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0009.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/11imagen_1104-579663412972_jpg.rf.42bde0a094955b92420da4d5fedfdd60.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0010.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/1imagen_859-8760196684483_jpg.rf.a3b4690179c29299bf7fc420488a5249.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0011.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_2017-3734571373602_jpg.rf.f9b0a2518f62e596e766fae58d2118e1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0012.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_23_rotada_90_ruido_jpg.rf.22f91f47b603f4c06b277a4571e4214d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0013.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_157-38072808038575_jpg.rf.bf319408a32c5c680b01c6a3bb8334c5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0014.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_3_rotada_150_ruido_jpg.rf.fb2aea7481c12717c443878fbd95bdd0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0015.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/1imagen_0-6010076999664307_jpg.rf.bdb10ee5dedbfa398eda5591c876529e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0016.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_5_rotada_0_ruido_jpg.rf.2daed739262b4bc338704138f6d28648.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0017.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_8_rotada_30_ruido_jpg.rf.56c343a2ae5033ccb518e60585c4df73.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0018.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_22_rotada_120_ruido_jpg.rf.6a69aab77ebaa904c482d57f65eb7b98.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0019.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_7_rotada_130_ruido_jpg.rf.0608ca6174f0af68b4325555f46b6877.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0020.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_654-2810145765828_jpg.rf.377bec251fa08aea73c0bcef39c9372c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0021.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/1imagen_859-8760196684483_jpg.rf.a648404ffeb59f8b206ae329ba482206.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0022.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_0_rotada_20_ruido_jpg.rf.cdbc724eaae013a4d34db9fbb91a2e3c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0023.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_9_rotada_180_ruido_jpg.rf.7b7c26e850931b10b05540b49e914fbb.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0024.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_1_rotada_50_ruido_jpg.rf.c985b2e44c73db31e0ed090c9131a880.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0025.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/1imagen_11_jpg.rf.7d5beb647dc57c98fe76ab4e5bbd7b2e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0026.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_20_rotada_180_ruido_jpg.rf.f52d084eb657c844ae0c68354d672824.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0027.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/Aimg_374_jpg.rf.613b1ef5f3adcea0ffb859229435c577.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0028.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_739-5456868212457_jpg.rf.1b2cdc4fbeec75117183290a3bd5d5d1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0029.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_561-5494697156962_jpg.rf.489b588524f0de061c7b958665580064.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0030.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_903-6589129749738_jpg.rf.049de16dab12bae5faa8c8132ada5f9d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0031.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_746-9507129293615_jpg.rf.2d3f5efccee69f9e17dd0b2919b5ec0b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0032.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_23_rotada_90_ruido_jpg.rf.de0de8a45913ab1f6a8c9480a56ca5ac.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0033.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/Aimg_20-removebg-preview_png_jpg.rf.cb865c30f701607182f2ea2a93f0c395.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0034.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/18imagen_954-1272140051074_jpg.rf.a4eec31d25e1b87f9d8b77702839ca75.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0035.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/frame_29_jpg.rf.7860768b14e6bfa78ebfe16ed3e9fefd.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0036.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/13imagen_621-6681550946325_jpg.rf.69abd3bc9546029f0c2b8d62477cdf74.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0037.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_869-832716018906_jpg.rf.3c5e52a606beaade58a15f5e17efe6bf.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0038.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/1imagen_40_jpg.rf.7a3a425dc7c608473c399572aab733a4.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0039.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_3_rotada_0_ruido_jpg.rf.324d5881d4305376cc27464e6f14cfae.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0040.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_17_rotada_60_ruido_jpg.rf.b4fbe1845530f1d595db7df6b14c44b4.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0041.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/frame_771_jpg.rf.00d11989d3952d9b34b34079c98bca47.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0042.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_15_rotada_0_ruido_jpg.rf.31173fd566a06845f12299d85c6b51d3.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0043.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/frame_782_jpg.rf.e93c6f0e9ce11c6f7124408556062966.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0044.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/3imagen_142-52654648010264_jpg.rf.e9713508198fb4a4d1174b5a0bd9da64.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0045.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/frame_126_jpg.rf.89cf9703d232827947efc644b11eb0c0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0046.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/3imagen_100-91064592816842_jpg.rf.ecd7fd01ceb882dd116d464387c8276c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0047.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/frame_72_jpg.rf.31a2887df9e7249305ce6a18da5d4184.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0048.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/13imagen_621-6681550946325_jpg.rf.a054acb75e170043b959266c658b4856.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0049.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_1107-951135655006_jpg.rf.144543e823d4bd771de86a4805428022.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0050.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_5_rotada_0_ruido_jpg.rf.9264be4d9ca9646638b1ee58e4b71a78.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0051.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_804-9609556407024_jpg.rf.98b5a1c02df591846fd3e98f5f539604.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0052.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_1136-8167960422938_jpg.rf.116693bc943de0e83c8e2750dbb3ebf6.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0053.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_21_rotada_160_ruido_jpg.rf.6490a9ecdd84f495b137e55734778306.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0054.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/Aimg_3_jpg.rf.47d205615980fb09128131d24e7d3723.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0055.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_23_rotada_40_ruido_jpg.rf.96ca5af04b5fed3db8aa70b6777f018e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0056.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/Aimg_200_jpg.rf.19ab558d78e1d6fb673b579c1435d804.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0057.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_23_rotada_120_ruido_jpg.rf.34913fb3cc223bd3e6a79f49cfcc5a19.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0058.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/2imagen_122-39850446196179_jpg.rf.2d796612ffd5fe1a2271e6fbbcafff45.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0059.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/Aimg_20-removebg-preview_png_jpg.rf.69979439a4b70c0be4d6d42bcca8b4cd.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0060.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_1_rotada_160_ruido_jpg.rf.c6132169852022efc743dc082c03a7e5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0061.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_15_rotada_80_ruido_jpg.rf.bf640b96f152a0864fc059b96a21787c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0062.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_8_rotada_160_ruido_jpg.rf.2c6bfd806d876828f7c3fe05d6495565.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0063.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/12imagen_1077-309611665523_jpg.rf.8694bc923be5cef9aa6bf070ab679abc.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0064.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "valid/imagen_7_rotada_80_ruido_jpg.rf.3b3f8ca643880c801f28fe551f25464e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0065.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_157-38072808038575_jpg.rf.c07a908f98d88a71273d2b50f911696a.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0066.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_17_rotada_0_ruido_jpg.rf.217b6ddeb6df2c22bd3059475b37e59c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0067.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/frame_125_jpg.rf.f25c880d34df5a7dd14523949baefe7e.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0068.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/1imagen_32_jpg.rf.1b259e4c2c1db7cc141b26df1ecc1983.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0069.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_0_rotada_110_ruido_jpg.rf.d2388c3de4b7ad1da3db9917e276e244.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0070.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/frame_532_jpg.rf.2aea822310f9c2a229eddd50f8a2dd9f.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0071.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_148-6490081496928_jpg.rf.b7a66998141c8b2b82c6b780f2e75260.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0072.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/0imagen_1069-9343874886395_jpg.rf.4f25ad8ba1eb94ccca8876d65b0c0ae9.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0073.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_22_rotada_140_ruido_jpg.rf.e8a9f1e70d53e65fe7186a20b735cd57.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0074.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/Aimg_414_jpg.rf.957094d60eaa1a5a5c4c36b6b8f46b0b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0075.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_3_rotada_10_ruido_jpg.rf.ae52c2ccc3f0aaf37b431bb68f60cce1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0076.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/imagen_17_rotada_10_ruido_jpg.rf.11bbd9c5e4b16eb00c2b740807c16276.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0077.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/frame_150_jpg.rf.352b706fb55974c6689a6f53a3bc8d56.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0078.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/1imagen_105_jpg.rf.8f71ba97e9dbe07c40491bb17ea87feb.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "desordenada_0079.jpg",
+      "categoria": "desordenada",
+      "origem": "Roboflow Universe: object-detection-5pf5v/packaging-defect-detection-wbcpk - open source",
+      "fonte_original": "train/Aimg_367_jpg.rf.8ee4511d7b8e41885e63856659c3375b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0000.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/video-IMG_5316_mp4-24_jpg.rf.af524151fb38ce818b98ec5c94b00777.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0001.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/Image-from-iOS_MOV-9_jpg.rf.41bdd21fd4fd0cb6a34c0b02d5025799.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0002.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/Image-from-iOS_MOV-22_jpg.rf.c0b3e06397ef6a9c4a265cd2846e556a.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0003.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/video-IMG_5318_mp4-5_jpg.rf.b1c30b7f93cfa4ca60ccbb14b90267e6.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0004.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/Image-from-iOS_MOV-14_jpg.rf.af775374b451a4975107133d032961b7.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0005.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/video-IMG_5316_mp4-18_jpg.rf.7ab98534d8a141aa7f316429df175d74.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0006.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/IMG_5758_mp4-9_jpg.rf.c1f04f5d4bfacd20b7d4a47e426b0e2f.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0007.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/video-IMG_5316_mp4-21_jpg.rf.81ca75275a85c36ff021b5d6bfc32cf1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0008.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/video-IMG_5316_mp4-43_jpg.rf.1b3cdffff8bd08a40a68c47b095f60f4.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0009.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/video-IMG_5316_mp4-39_jpg.rf.32fc3b9e9f4caa21bd798ed393ab8bbb.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0010.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-5_jpg.rf.af531b0e0ca36f7b435e66e07a7436b5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0011.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-0_jpg.rf.4139d4939fdf754f63409229fb70dca0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0012.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/IMG_5758-orig_mp4-9_jpg.rf.4186b91e27eea8cb4ef6e38c3b4fe3eb.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0013.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "test/video-IMG_5316_mp4-1_jpg.rf.bcc0b767e8309cc4186557fc9128da45.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0014.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/videos-IMG_5317_mp4-2_jpg.rf.63a309a755273ecde821d9f16a2af04d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0015.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-44_jpg.rf.172fd1ab8d098444f6dcd638603006e7.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0016.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-12_jpg.rf.13601ca0bf35bb4754b4578425c6a9a6.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0017.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/IMG_5759_mp4-13_jpg.rf.cad752b4592348260b3c9824f9a2aeeb.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0018.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-3_jpg.rf.3694f0852b0d53c477a39ac27d3d9e05.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0019.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-20_jpg.rf.9932c256c77e816b77d0ddd4cf1b9987.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0020.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-21_jpg.rf.d6e73e31b9072ac240541d2818facaa5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0021.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/png-IMG_5314_png_jpg.rf.f133fd5dc70562f820ef5c3c31a237fa.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0022.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-25_jpg.rf.1bf8ae1875d27123795fa03aa65bce97.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0023.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-25_jpg.rf.747d4ca66999c0fcf38a12db5da6a610.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0024.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-8_jpg.rf.199c2a61aa2b7756d19f756a8fe35981.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0025.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-14_jpg.rf.6c57934cb156375d0527ec4737f8133d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0026.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-19_jpg.rf.39c4898a96ee6f547b91667f99aba9d6.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0027.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/videos-IMG_5317_mp4-6_jpg.rf.b67ae54e9e74470671776c4241b74665.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0028.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-49_jpg.rf.006df8d623e688815b2cd190c594b37b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0029.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-7_jpg.rf.8e07a3cd639d862638d23cb46700cb06.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0030.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-26_jpg.rf.e7811bef744d6d557b527397f0bec15c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0031.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-27_jpg.rf.de9cefdf415083af3cfb4bd03e2cbf05.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0032.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-45_jpg.rf.177bacb4a02c5a559c7a6112d35965c2.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0033.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5318_mp4-2_jpg.rf.10afd81b94fe131a66a3a10d7882aad7.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0034.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/IMG_5758-orig_mp4-7_jpg.rf.50f924e35d4f5411c60156e18555a585.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0035.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5318_mp4-3_jpg.rf.21237f543f18becf9ad409d952972262.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0036.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-33_jpg.rf.74003ae18e3660433feda825495f9361.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0037.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5318_mp4-0_jpg.rf.30a572bc5f5bc1e32f24f88c1cd08e6c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0038.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-41_jpg.rf.ca20a5dfae11b03cdc77823d42215d7c.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0039.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-47_jpg.rf.03b5f905a29bf22d13ae1bd4c88a54e6.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0040.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-4_jpg.rf.63da70d842e5a754117367a125638ec2.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0041.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-24_jpg.rf.24fe2eb25d2e460ca8d26356e0c7aba5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0042.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-19_jpg.rf.b6ba31a4c7733675b53f7fc812b62fd2.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0043.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/IMG_5760_mp4-15_jpg.rf.0efb85352f42aba245c19450901cfcbc.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0044.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-10_jpg.rf.d1c77b14bc5d4eafeaa0837cbe7848e5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0045.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-15_jpg.rf.f4c00ee74b1b52240000200f18c7acdc.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0046.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5318_mp4-7_jpg.rf.59dec6b2916570419995f702f180010d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0047.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-8_jpg.rf.8c4ac8227c0ca08e55beb5966898f300.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0048.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/IMG_5760_mp4-11_jpg.rf.c6352cb1b9cfd7902ebeb0261b3f8c02.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0049.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-17_jpg.rf.3443f075d29f559dbb9e73856ad63982.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0050.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/IMG_5760_mp4-14_jpg.rf.da0174b448e8959de6503f94b6c1d7f5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0051.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-23_jpg.rf.1425e4b50b4515d9e124933b697b602b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0052.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-13_jpg.rf.5471167d1c4b8739d3e1d8af331e8622.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0053.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-31_jpg.rf.aa7a5ec1685f07388350f73a714a92e1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0054.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-31_jpg.rf.a19f9c76836de0e5fee4fd9339b2deca.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0055.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-12_jpg.rf.61a88f3e4b650819879b7b193e67eed0.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0056.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-5_jpg.rf.3e2e4aff38696a153c1c7f63e6c97c67.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0057.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-38_jpg.rf.4d7af4f0d5b8466f0d973a60a628ab3d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0058.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/videos-IMG_5317_mp4-0_jpg.rf.b42a8e6cfaab9ce7a49c9a2e360aac39.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0059.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-22_jpg.rf.ca118ed6359cfb82c367c292d6fbe562.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0060.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/IMG_5760_mp4-12_jpg.rf.f32cf52e52902ead87690dd28ede7423.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0061.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-29_jpg.rf.cc7f2871433d7843c44a1785426fe9e1.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0062.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-13_jpg.rf.d93e1bdd4985f47258c02b97d634e108.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0063.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-7_jpg.rf.5d8e168c14ee6db3cecc61556c01365d.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0064.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/Image-from-iOS_MOV-15_jpg.rf.ba1c5053af6bc1f63817f091775ebff5.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0065.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-2_jpg.rf.5f55a978104737222e02f5285c2438ae.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0066.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/IMG_5760_mp4-28_jpg.rf.8ee601a3551b835cdf13d048c8bc099b.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0067.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-34_jpg.rf.d13be7032cd179fb92df9d5c340de620.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0068.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-28_jpg.rf.0d9978e245611d1f8b1d09b5ce5c6a45.jpg",
+      "data_download": "2026-06-11"
+    },
+    {
+      "filename": "ambigua_0069.jpg",
+      "categoria": "ambigua",
+      "origem": "Roboflow Universe: planogram-pc7rp/planogram-pyyeu - open source (usado como ambíguo devido ao foco/desalinhamento)",
+      "fonte_original": "train/video-IMG_5316_mp4-36_jpg.rf.1c576f8863932dfa434203edabd291ba.jpg",
+      "data_download": "2026-06-11"
+    }
+  ]
+}
