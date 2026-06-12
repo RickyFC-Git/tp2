@@ -1,0 +1,209 @@
+[
+  {
+    "image_path": "data\\images\\normal\\normal_0000.jpg",
+    "zone_id": "Z_S1",
+    "overall_status": "ok",
+    "issues": [],
+    "shelf_fill_rate_min": 0.85,
+    "shelf_fill_rate_max": 1.0
+  },
+  {
+    "image_path": "data\\images\\normal\\normal_0001.jpg",
+    "zone_id": "Z_S1",
+    "overall_status": "ok",
+    "issues": [],
+    "shelf_fill_rate_min": 0.85,
+    "shelf_fill_rate_max": 1.0
+  },
+  {
+    "image_path": "data\\images\\normal\\normal_0002.jpg",
+    "zone_id": "Z_S1",
+    "overall_status": "ok",
+    "issues": [],
+    "shelf_fill_rate_min": 0.85,
+    "shelf_fill_rate_max": 1.0
+  },
+  {
+    "image_path": "data\\images\\vazia\\vazia_0000.jpg",
+    "zone_id": "Z_S2",
+    "overall_status": "critical",
+    "issues": [
+      {
+        "type": "empty_shelf",
+        "location": "prateleira inferior",
+        "severity": "high"
+      }
+    ],
+    "shelf_fill_rate_min": 0.0,
+    "shelf_fill_rate_max": 0.35
+  },
+  {
+    "image_path": "data\\images\\vazia\\vazia_0001.jpg",
+    "zone_id": "Z_S2",
+    "overall_status": "critical",
+    "issues": [
+      {
+        "type": "empty_shelf",
+        "location": "prateleira inferior",
+        "severity": "high"
+      }
+    ],
+    "shelf_fill_rate_min": 0.0,
+    "shelf_fill_rate_max": 0.35
+  },
+  {
+    "image_path": "data\\images\\vazia\\vazia_0002.jpg",
+    "zone_id": "Z_S2",
+    "overall_status": "critical",
+    "issues": [
+      {
+        "type": "empty_shelf",
+        "location": "prateleira inferior",
+        "severity": "high"
+      }
+    ],
+    "shelf_fill_rate_min": 0.0,
+    "shelf_fill_rate_max": 0.35
+  },
+  {
+    "image_path": "data\\images\\planograma\\planograma_0000.jpg",
+    "zone_id": "Z_S3",
+    "overall_status": "warning",
+    "issues": [
+      {
+        "type": "wrong_product",
+        "location": "prateleira central",
+        "severity": "medium"
+      }
+    ],
+    "shelf_fill_rate_min": 0.5,
+    "shelf_fill_rate_max": 0.85
+  },
+  {
+    "image_path": "data\\images\\planograma\\planograma_0001.jpg",
+    "zone_id": "Z_S3",
+    "overall_status": "warning",
+    "issues": [
+      {
+        "type": "wrong_product",
+        "location": "prateleira central",
+        "severity": "medium"
+      }
+    ],
+    "shelf_fill_rate_min": 0.5,
+    "shelf_fill_rate_max": 0.85
+  },
+  {
+    "image_path": "data\\images\\planograma\\planograma_0002.jpg",
+    "zone_id": "Z_S3",
+    "overall_status": "warning",
+    "issues": [
+      {
+        "type": "wrong_product",
+        "location": "prateleira central",
+        "severity": "medium"
+      }
+    ],
+    "shelf_fill_rate_min": 0.5,
+    "shelf_fill_rate_max": 0.85
+  },
+  {
+    "image_path": "data\\images\\desordenada\\desordenada_0000.jpg",
+    "zone_id": "Z_S4",
+    "overall_status": "warning",
+    "issues": [
+      {
+        "type": "damaged",
+        "location": "prateleira superior",
+        "severity": "medium"
+      },
+      {
+        "type": "misaligned",
+        "location": "prateleira inferior",
+        "severity": "low"
+      }
+    ],
+    "shelf_fill_rate_min": 0.55,
+    "shelf_fill_rate_max": 0.85
+  },
+  {
+    "image_path": "data\\images\\desordenada\\desordenada_0001.jpg",
+    "zone_id": "Z_S4",
+    "overall_status": "warning",
+    "issues": [
+      {
+        "type": "damaged",
+        "location": "prateleira superior",
+        "severity": "medium"
+      },
+      {
+        "type": "misaligned",
+        "location": "prateleira inferior",
+        "severity": "low"
+      }
+    ],
+    "shelf_fill_rate_min": 0.55,
+    "shelf_fill_rate_max": 0.85
+  },
+  {
+    "image_path": "data\\images\\desordenada\\desordenada_0002.jpg",
+    "zone_id": "Z_S4",
+    "overall_status": "warning",
+    "issues": [
+      {
+        "type": "damaged",
+        "location": "prateleira superior",
+        "severity": "medium"
+      },
+      {
+        "type": "misaligned",
+        "location": "prateleira inferior",
+        "severity": "low"
+      }
+    ],
+    "shelf_fill_rate_min": 0.55,
+    "shelf_fill_rate_max": 0.85
+  },
+  {
+    "image_path": "data\\images\\ambigua\\ambigua_0000.jpg",
+    "zone_id": "Z_S1",
+    "overall_status": "warning",
+    "issues": [
+      {
+        "type": "other",
+        "location": "prateleira central",
+        "severity": "low"
+      }
+    ],
+    "shelf_fill_rate_min": 0.4,
+    "shelf_fill_rate_max": 0.8
+  },
+  {
+    "image_path": "data\\images\\ambigua\\ambigua_0001.jpg",
+    "zone_id": "Z_S1",
+    "overall_status": "warning",
+    "issues": [
+      {
+        "type": "other",
+        "location": "prateleira central",
+        "severity": "low"
+      }
+    ],
+    "shelf_fill_rate_min": 0.4,
+    "shelf_fill_rate_max": 0.8
+  },
+  {
+    "image_path": "data\\images\\ambigua\\ambigua_0002.jpg",
+    "zone_id": "Z_S1",
+    "overall_status": "warning",
+    "issues": [
+      {
+        "type": "other",
+        "location": "prateleira central",
+        "severity": "low"
+      }
+    ],
+    "shelf_fill_rate_min": 0.4,
+    "shelf_fill_rate_max": 0.8
+  }
+]
