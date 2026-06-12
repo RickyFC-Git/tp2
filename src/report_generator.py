@@ -1,27 +1,3 @@
-"""
-report_generator.py — Componente 4: Gerador de Relatórios de Inspeção
-======================================================================
-O que este componente faz:
-  1. Gera relatórios de inspeção em Markdown com 6 secções obrigatórias
-  2. Integra contexto histórico do RAG em cada relatório
-  3. Inclui regras disparadas com os dados concretos
-  4. Gera recomendações ordenadas por urgência via Gemini
-  5. Guarda relatórios em data/reports/
-
-Secções obrigatórias (secção 7 do PDF):
-  1. Sumário executivo (máx. 150 palavras)
-  2. Problemas por zona
-  3. Regras disparadas
-  4. Contexto histórico relevante (RAG)
-  5. Recomendações (máx. 5, ordenadas por urgência)
-  6. Integração com trajectória (placeholder se não implementada)
-
-Uso standalone:
-  python report_generator.py --session data/inspections/
-  python report_generator.py --inspection data/inspections/INS_xxx.json
-  python report_generator.py --zone Z_S1 --period 14
-"""
-
 import os
 import json
 import logging
@@ -32,7 +8,6 @@ from typing import Optional
 import google.generativeai as genai
 from dotenv import load_dotenv
 
-# ── Configuração ──────────────────────────────────────────────────────────────
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
@@ -45,7 +20,6 @@ RULES_DIR = Path("data/rules")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
-# ── Prompts ───────────────────────────────────────────────────────────────────
 PROMPT_SUMARIO = """És um assistente de gestão de loja de retalho. Gera um sumário executivo
 de uma sessão de inspeção de prateleiras. Máximo 150 palavras. Linguagem direta e acionável.
 
@@ -88,7 +62,6 @@ Se não houver histórico relevante, diz "Sem histórico anterior disponível pa
 
 Devolve APENAS o texto descritivo:"""
 
-# ── Carregamento de dados ─────────────────────────────────────────────────────
 def carregar_inspecoes_sessao(pasta: str, horas: int = 24) -> list[dict]:
     """Carrega inspeções das últimas `horas` horas de uma pasta."""
     pasta_path = Path(pasta)
@@ -101,7 +74,6 @@ def carregar_inspecoes_sessao(pasta: str, horas: int = 24) -> list[dict]:
                 insp = json.load(f)
             if "inspection_id" not in insp:
                 continue
-            # Filtra por data se tiver timestamp
             ts = insp.get("timestamp", "")
             if ts:
                 try:
@@ -155,7 +127,6 @@ def carregar_todas_regras() -> list[dict]:
     return regras
 
 
-# ── Cálculo de estatísticas ───────────────────────────────────────────────────
 def calcular_estatisticas(inspecoes: list[dict]) -> dict:
     """Calcula estatísticas agregadas de uma lista de inspeções."""
     if not inspecoes:
@@ -169,7 +140,6 @@ def calcular_estatisticas(inspecoes: list[dict]) -> dict:
     fill_rates = [i.get("shelf_fill_rate", 0) for i in inspecoes if i.get("shelf_fill_rate") is not None]
     fill_rate_medio = sum(fill_rates) / len(fill_rates) if fill_rates else 0
 
-    # Contagem de tipos de issue
     contagem_issues = {}
     todos_issues = []
     for insp in inspecoes:
@@ -204,7 +174,6 @@ def agrupar_por_zona(inspecoes: list[dict]) -> dict:
     return por_zona
 
 
-# ── Execução de regras para relatório ─────────────────────────────────────────
 def executar_regras_sessao(inspecoes: list[dict]) -> list[dict]:
     """Executa todas as regras válidas contra todas as inspeções da sessão."""
     try:
@@ -221,7 +190,6 @@ def executar_regras_sessao(inspecoes: list[dict]) -> list[dict]:
     return todas_notificacoes
 
 
-# ── Contexto histórico via RAG ────────────────────────────────────────────────
 def obter_contexto_historico_zona(zona_id: str, status: str) -> str:
     """Obtém contexto histórico do RAG para uma zona específica."""
     try:
@@ -265,7 +233,6 @@ def obter_contexto_historico_geral(stats: dict) -> str:
         return "Sistema RAG não disponível."
 
 
-# ── Geração de secções via Gemini ─────────────────────────────────────────────
 def chamar_gemini(prompt: str) -> str:
     """Chama Gemini Flash para geração de texto."""
     try:
@@ -301,7 +268,7 @@ def gerar_sumario_executivo(stats: dict) -> str:
 def gerar_recomendacoes(stats: dict, contexto_historico: str) -> str:
     """Gera recomendações ordenadas por urgência via Gemini."""
     problemas_str = json.dumps(
-        stats.get("todos_issues", [])[:20],  # limita para não exceder contexto
+        stats.get("todos_issues", [])[:20], 
         ensure_ascii=False,
         indent=2
     )
@@ -312,7 +279,6 @@ def gerar_recomendacoes(stats: dict, contexto_historico: str) -> str:
     return chamar_gemini(prompt)
 
 
-# ── Construção do relatório Markdown ─────────────────────────────────────────
 def construir_secao_problemas_por_zona(por_zona: dict) -> str:
     """Constrói a secção 2: Problemas por zona."""
     linhas = ["## 2. Problemas por Zona\n"]
@@ -322,7 +288,6 @@ def construir_secao_problemas_por_zona(por_zona: dict) -> str:
         return "\n".join(linhas)
 
     for zona_id, inspecoes in sorted(por_zona.items()):
-        # Só inclui zonas com problemas
         tem_problemas = any(
             i.get("overall_status") in ("warning", "critical") or i.get("issues")
             for i in inspecoes
@@ -338,7 +303,7 @@ def construir_secao_problemas_por_zona(por_zona: dict) -> str:
             insp_id = insp.get("inspection_id", "?")
             ts = insp.get("timestamp", "")[:16]
 
-            emoji_status = {"ok": "✅", "warning": "⚠️", "critical": "🔴"}.get(status, "❓")
+            emoji_status = {"ok": "[OK]", "warning": "[WARNING]", "critical": "[CRITICAL]"}.get(status, "[?]")
 
             linhas.append(f"**Inspeção** `{insp_id}` — {ts}")
             linhas.append(f"- Estado: {emoji_status} {status.upper()}")
@@ -348,8 +313,8 @@ def construir_secao_problemas_por_zona(por_zona: dict) -> str:
             if issues:
                 linhas.append("- Issues detetados:")
                 for issue in issues:
-                    sev_emoji = {"low": "🟡", "medium": "🟠", "high": "🔴"}.get(
-                        issue.get("severity", "low"), "⚪"
+                    sev_emoji = {"low": "[LOW]", "medium": "[MEDIUM]", "high": "[CRITICAL]"}.get(
+                        issue.get("severity", "low"), "[?]"
                     )
                     linhas.append(
                         f"  - {sev_emoji} `{issue.get('type')}` em _{issue.get('location', '?')}_: "
@@ -359,7 +324,6 @@ def construir_secao_problemas_por_zona(por_zona: dict) -> str:
             else:
                 linhas.append("- Sem issues registados")
 
-            # Contexto histórico desta zona
             contexto = obter_contexto_historico_zona(zona_id, status)
             if contexto and "Sem histórico" not in contexto and "não disponível" not in contexto:
                 linhas.append(f"\n> **Contexto histórico:** {contexto[:300]}")
@@ -379,7 +343,6 @@ def construir_secao_regras(notificacoes: list[dict]) -> str:
 
     linhas.append(f"**Total de alertas gerados:** {len(notificacoes)}\n")
 
-    # Agrupa por nível de alerta
     por_nivel = {}
     for notif in notificacoes:
         nivel = notif.get("alert_level", "info")
@@ -388,7 +351,7 @@ def construir_secao_regras(notificacoes: list[dict]) -> str:
     for nivel in ["critical", "warning", "info"]:
         if nivel not in por_nivel:
             continue
-        emoji = {"critical": "🔴", "warning": "⚠️", "info": "ℹ️"}.get(nivel, "")
+        emoji = {"critical": "[CRITICAL]", "warning": "[WARNING]", "info": "[INFO]"}.get(nivel, "")
         linhas.append(f"### {emoji} {nivel.upper()} ({len(por_nivel[nivel])} alertas)\n")
 
         for notif in por_nivel[nivel]:
