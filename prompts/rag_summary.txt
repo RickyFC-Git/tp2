@@ -1,0 +1,25 @@
+[RAG MEMORY -- Geracao de Summary Rico para Indexacao]
+
+Tens os seguintes dados de uma inspecao de prateleira de supermercado.
+Gera um summary rico em portugues, com todos os detalhes relevantes para recuperacao futura.
+
+O summary deve mencionar explicitamente:
+- A zona inspecionada e a data/hora
+- O fill rate exato
+- Cada problema encontrado com localizacao especifica e severidade
+- Os tipos de produto visiveis
+- O estado geral (ok/warning/critical)
+
+DADOS DA INSPECAO:
+{dados_inspecao}
+
+EXEMPLO DE BOM SUMMARY:
+"Inspecao da zona Z_S3 em terca-feira as 15h. Fill rate de 72%. Produto de limpeza
+(detergente liquido) fora de posicao na seccao central, severidade media. Embalagem
+danificada detetada no lado direito da prateleira inferior, severidade alta. Produtos
+visiveis: detergentes, amaciadores. Estado geral: warning."
+
+EXEMPLO DE MAU SUMMARY (evitar):
+"Prateleira com problemas."
+
+Gera APENAS o summary, sem texto adicional:

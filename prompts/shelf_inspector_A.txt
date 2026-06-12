@@ -1,0 +1,29 @@
+[ESTRATEGIA A -- Zero-Shot Direct]
+
+Analisa esta imagem de uma prateleira de supermercado e devolve um JSON valido com o seguinte schema obrigatorio:
+
+{
+  "inspection_id": "INS_<TIMESTAMP>_<ID>",
+  "timestamp": "<ISO8601>",
+  "image_path": "<PATH>",
+  "zone_id": "<ZONE>",
+  "overall_status": "ok|warning|critical",
+  "issues": [
+    {
+      "issue_id": "ISS_001",
+      "type": "empty_shelf|wrong_product|damaged|misaligned|label_missing|other",
+      "location": "TEXTO EM PORTUGUES (ex: 'prateleira do meio, lado esquerdo')",
+      "severity": "low|medium|high",
+      "description": "TEXTO EM PORTUGUES (ex: 'varias falhas de stock visiveis')",
+      "confidence": 0.0,
+      "affected_area_pct": 0.0
+    }
+  ],
+  "shelf_fill_rate": 0.0,
+  "products_detected": ["TEXTO EM PORTUGUES (ex: 'medicamentos', 'higiene')"],
+  "model_reasoning": "TEXTO EM PORTUGUES (raciocinio detalhado antes da classificacao)"
+}
+
+REGRAS DE IDIOMA CRITICAS:
+1. As chaves do JSON e os valores de 'overall_status', 'type' e 'severity' TEM de manter o formato em ingles do schema acima.
+2. Os campos de texto livre ('location', 'description', 'products_detected' e 'model_reasoning') tem de ser OBRIGATORIAMENTE preenchidos em Portugues de Portugal.

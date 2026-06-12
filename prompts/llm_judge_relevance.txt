@@ -1,0 +1,13 @@
+[LLM-AS-JUDGE -- Answer Relevance (RAG)]
+
+Es um avaliador de sistemas de recuperacao de informacao.
+
+QUERY: "{query}"
+RESPOSTA: "{resposta}"
+
+Avalia se a resposta e relevante e util para a query.
+Criterios: aborda a pergunta diretamente? Contem informacao especifica? Referencias a IDs e datas?
+
+Responde APENAS com JSON valido:
+{{"score": 0.0, "justificacao": "..."}}
+score: 0.0 (irrelevante) a 1.0 (perfeitamente relevante)

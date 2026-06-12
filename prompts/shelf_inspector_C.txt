@@ -1,0 +1,39 @@
+[ESTRATEGIA C -- Few-Shot (2 Exemplos)]
+
+Vais analisar uma imagem de prateleira de supermercado. Aqui estao dois exemplos de analises corretas anteriores:
+
+EXEMPLO 1 (prateleira normal):
+Imagem: prateleira de bebidas com garrafas alinhadas, todas as posicoes preenchidas.
+JSON resultado: {"overall_status": "ok", "issues": [], "shelf_fill_rate": 95.0, "products_detected": ["bebidas", "sumos"], "model_reasoning": "Prateleira com bebidas em bom estado. Todas as posicoes preenchidas. Produtos alinhados e com etiquetas visiveis."}
+
+EXEMPLO 2 (prateleira com problemas):
+Imagem: prateleira de snacks com 3 posicoes vazias no lado esquerdo e um produto tombado ao centro.
+JSON resultado: {"overall_status": "warning", "issues": [{"type": "empty_shelf", "location": "prateleira central, lado esquerdo", "severity": "high", "description": "3 posicoes consecutivas sem produto", "confidence": 0.92, "affected_area_pct": 25.0}, {"type": "misaligned", "location": "prateleira central, centro", "severity": "medium", "description": "produto tombado bloqueando etiqueta", "confidence": 0.85, "affected_area_pct": 5.0}], "shelf_fill_rate": 65.0, "products_detected": ["snacks", "batatas fritas"], "model_reasoning": "Lado esquerdo com lacuna significativa. Produto tombado ao centro. Estado geral warning."}
+
+Agora analisa a imagem fornecida e devolve o JSON completo:
+
+{
+  "inspection_id": "INS_<TIMESTAMP>_<ID>",
+  "timestamp": "<ISO8601>",
+  "image_path": "<PATH>",
+  "zone_id": "<ZONE>",
+  "overall_status": "ok|warning|critical",
+  "issues": [
+    {
+      "issue_id": "ISS_001",
+      "type": "empty_shelf|wrong_product|damaged|misaligned|label_missing|other",
+      "location": "descricao da localizacao na prateleira",
+      "severity": "low|medium|high",
+      "description": "descricao do problema",
+      "confidence": 0.0,
+      "affected_area_pct": 0.0
+    }
+  ],
+  "shelf_fill_rate": 0.0,
+  "products_detected": ["categorias de produto visiveis"],
+  "model_reasoning": "raciocinio explicito antes da classificacao"
+}
+
+REGRAS DE IDIOMA CRITICAS:
+1. Mantem as chaves e os enums em ingles exatamente como no schema.
+2. Campos 'location', 'description', 'products_detected' e 'model_reasoning' obrigatoriamente em Portugues de Portugal.

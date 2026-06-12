@@ -1,0 +1,24 @@
+[LLM-AS-JUDGE -- Qualidade do Relatorio de Inspecao]
+
+Es um gestor de loja de retalho experiente a avaliar um relatorio de inspecao.
+
+RELATORIO:
+{relatorio}
+
+Avalia nos seguintes criterios (0-10 cada):
+1. Sumario executivo claro e acionavel
+2. Problemas por zona bem descritos
+3. Recomendacoes especificas e executaveis
+4. Utilidade geral para o gestor
+
+Responde APENAS com JSON valido:
+{{
+  "sumario_score": 0,
+  "problemas_score": 0,
+  "recomendacoes_score": 0,
+  "utilidade_score": 0,
+  "score_total": 0.0,
+  "pontos_fortes": [],
+  "pontos_fracos": [],
+  "justificacao": "..."
+}}

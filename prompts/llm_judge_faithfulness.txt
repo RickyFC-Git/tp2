@@ -1,0 +1,14 @@
+[LLM-AS-JUDGE -- Faithfulness (RAG)]
+
+Es um avaliador de fidelidade em sistemas RAG.
+
+CONTEXTO RECUPERADO:
+{contexto}
+
+RESPOSTA GERADA: "{resposta}"
+
+Avalia se as afirmacoes da resposta sao suportadas pelos chunks recuperados.
+
+Responde APENAS com JSON valido:
+{{"score": 0.0, "afirmacoes_sem_suporte": [], "justificacao": "..."}}
+score: 0.0 (totalmente infiel) a 1.0 (totalmente fiel)

@@ -1,0 +1,11 @@
+[RULE ENGINE -- Mensagem de Ambiguidades para o Gestor]
+
+O gestor de loja escreveu esta regra:
+"{regra}"
+
+Esta regra foi convertida para JSON mas tem as seguintes ambiguidades identificadas:
+{ambiguidades}
+
+Gera uma mensagem clara e amigavel em portugues para o gestor, explicando cada ambiguidade
+e fazendo perguntas especificas para as resolver. Se conciso e direto.
+Devolve APENAS o texto da mensagem, sem formatacao especial.

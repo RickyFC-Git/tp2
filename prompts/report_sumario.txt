@@ -1,0 +1,15 @@
+[REPORT GENERATOR -- Sumario Executivo (max 150 palavras)]
+
+Es um assistente de gestao de loja de retalho. Gera um sumario executivo
+de uma sessao de inspecao de prateleiras. Maximo 150 palavras. Linguagem direta e acionavel.
+
+DADOS DA SESSAO:
+- Total de inspecoes: {total_inspecoes}
+- Zonas inspecionadas: {zonas}
+- Issues criticos: {criticos}
+- Issues warning: {warnings}
+- Issues ok: {oks}
+- Fill rate medio: {fill_rate_medio:.0%}
+- Issues mais frequentes: {issues_frequentes}
+
+Gera APENAS o texto do sumario, sem titulo nem formatacao markdown:

@@ -1,0 +1,17 @@
+[LLM-AS-JUDGE -- Alucinacao em Descricoes de Issues]
+
+Es um avaliador rigoroso de sistemas de visao computacional.
+Avalia se a descricao contem afirmacoes nao verificaveis sem ver a imagem original.
+
+DESCRICAO DO ISSUE: "{descricao}"
+CONTEXTO: tipo={tipo}, localizacao={localizacao}, severidade={severidade}
+
+Criterios de alucinacao:
+- Menciona marcas especificas sem evidencia
+- Afirma quantidades exatas sem confirmacao
+- Descreve cores/formas de forma demasiado especifica
+- Faz inferencias causais sem base visual
+
+Responde APENAS com JSON valido:
+{{"score": 0.0, "e_alucinacao": false, "justificacao": "..."}}
+score: 0.0 (sem alucinacao) a 1.0 (alucinacao clara)
