@@ -2,15 +2,13 @@ import os
 import json
 import logging
 import time
+import requests
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
-
-import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 RULES_DIR = Path("data/rules")
 RULES_DIR.mkdir(parents=True, exist_ok=True)
@@ -20,6 +18,9 @@ LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
+
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+MODEL_NAME = "openai/gpt-4o-mini"
 
 PROMPT_CONVERTER_REGRA = """És um assistente especializado em gestão de lojas de retalho.
 O gestor de loja vai escrever uma regra em português natural e tu tens de a converter para JSON estruturado.
@@ -32,7 +33,7 @@ TIPOS DE ISSUE POSSÍVEIS: empty_shelf, wrong_product, damaged, misaligned, labe
 NÍVEIS DE SEVERIDADE: low, medium, high
 LOCALIZAÇÕES NA PRATELEIRA: bottom, middle, top, any
 
-Converte esta regra para o seguinte JSON. Devolve APENAS o JSON, sem texto antes ou depois:
+Converte esta regra para o seguinte JSON. Devolve APENAS o JSON estruturado dentro de um bloco de código markdown ```json, sem texto antes ou depois:
 
 {{
   "rule_id": "{rule_id}",
@@ -59,13 +60,13 @@ Converte esta regra para o seguinte JSON. Devolve APENAS o JSON, sem texto antes
 }}
 
 REGRAS DE CONVERSÃO:
-- Se a regra menciona percentagem de vazio (ex: "30% vazia"), converte para fill_rate_threshold = 1 - percentagem (ex: 0.70)
+- Se a regra menciona percentagem de vazio (ex: "30% vazia"), converte para fill_rate_threshold = 0.70 (pois ocupação esperada é 100 - 30 = 70). Se disser ocupação menor que 80%, fill_rate_threshold = 80.0 ou 0.80.
 - Se menciona "prateleira inferior/média/superior", usa location_filter = "bottom"/"middle"/"top"
 - Se menciona urgência ("crítico", "imediatamente"), usa alert_level = "critical"
 - Se menciona "avisa mas não é urgente", usa alert_level = "info"
 - Se a zona não é especificada, zone_filter = null (aplica a todas)
 - Se o horário não é especificado, time_filter = null
-- Se algo for AMBÍGUO ou em falta, lista em "ambiguities" e coloca is_valid = false
+- Se algo for AMBÍGUO ou em falta para poder mapear os campos estruturados com certeza, lista em "ambiguities" e coloca is_valid = false
 - Em "assumptions" lista o que assumiste quando a regra não era explícita"""
 
 PROMPT_VERIFICAR_AMBIGUIDADES = """O gestor de loja escreveu esta regra:
@@ -74,12 +75,11 @@ PROMPT_VERIFICAR_AMBIGUIDADES = """O gestor de loja escreveu esta regra:
 Esta regra foi convertida para JSON mas tem as seguintes ambiguidades identificadas:
 {ambiguidades}
 
-Gera uma mensagem clara e amigável em português para o gestor, explicando cada ambiguidade
+Gera uma mensagem clara e amigável em português para o gestor, explaining cada ambiguidade
 e fazendo perguntas específicas para as resolver. Sê conciso e direto.
 Devolve APENAS o texto da mensagem, sem formatação especial."""
 
 def gerar_rule_id() -> str:
-    """Gera um ID único para a regra baseado nas regras existentes."""
     existentes = list(RULES_DIR.glob("RULE_*.json"))
     if not existentes:
         return "RULE_001"
@@ -93,68 +93,80 @@ def gerar_rule_id() -> str:
     return f"RULE_{proximo:03d}"
 
 def guardar_regra(regra: dict) -> Path:
-    """Guarda uma regra em disco."""
     ficheiro = RULES_DIR / f"{regra['rule_id']}.json"
-    with open(ficheiro, "w", encoding="utf-8") as f:
-        json.dump(regra, f, ensure_ascii=False, indent=2)
+    ficheiro.write_text(json.dumps(regra, ensure_ascii=False, indent=2), encoding="utf-8")
     return ficheiro
 
 def carregar_regra(rule_id: str) -> Optional[dict]:
-    """Carrega uma regra do disco."""
     ficheiro = RULES_DIR / f"{rule_id}.json"
     if not ficheiro.exists():
         return None
-    with open(ficheiro, encoding="utf-8") as f:
-        return json.load(f)
+    return json.loads(ficheiro.read_text(encoding="utf-8"))
 
 def carregar_todas_regras() -> list[dict]:
-    """Carrega todas as regras persistidas."""
     regras = []
     for ficheiro in sorted(RULES_DIR.glob("RULE_*.json")):
-        with open(ficheiro, encoding="utf-8") as f:
-            regras.append(json.load(f))
+        regras.append(json.loads(ficheiro.read_text(encoding="utf-8")))
     return regras
 
 def eliminar_regra(rule_id: str) -> bool:
-    """Elimina uma regra do disco. Devolve True se sucesso."""
     ficheiro = RULES_DIR / f"{rule_id}.json"
     if not ficheiro.exists():
         return False
     ficheiro.unlink()
     return True
 
-def chamar_gemini(prompt: str, max_retries: int = 3) -> str:
-    """Chama o Gemini Flash com retry em caso de erro 429."""
-    model = genai.GenerativeModel("gemini-1.5-flash")
+def chamar_openrouter(prompt: str, max_retries: int = 3) -> str:
+    if not OPENROUTER_API_KEY:
+        raise ValueError("A variável de ambiente OPENROUTER_API_KEY não está configurada no ficheiro .env")
+
+    headers = {
+        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "model": MODEL_NAME,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0
+    }
+
     for attempt in range(max_retries):
         try:
-            response = model.generate_content(
-                prompt,
-                generation_config={"temperature": 0},
+            response = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers=headers,
+                json=payload,
+                timeout=30
             )
-            return response.text.strip()
-        except Exception as e:
-            if "429" in str(e) and attempt < max_retries - 1:
-                wait = (2 ** attempt) * 10
-                log.warning(f"Rate limit. Aguardando {wait}s...")
+
+            if response.status_code == 200:
+                res_json = response.json()
+                return res_json["choices"][0]["message"]["content"].strip()
+            elif response.status_code == 429 and attempt < max_retries - 1:
+                wait = (2 ** attempt) * 5
+                log.warning(f"Rate limit detetado (429). A aguardar {wait}s...")
                 time.sleep(wait)
             else:
-                raise
+                response.raise_for_status()
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise RuntimeError(f"Falha ao comunicar com o OpenRouter após {max_retries} tentativas: {e}")
+            time.sleep(2)
     return ""
 
 def parse_json_limpo(raw: str) -> dict:
-    """Remove markdown e faz parse do JSON."""
     raw = raw.strip()
     if raw.startswith("```"):
         linhas = raw.split("\n")
-        raw = "\n".join(linhas[1:-1] if linhas[-1].strip() == "```" else linhas[1:])
+        if linhas[0].startswith("```"):
+            linhas = linhas[1:]
+        if linhas and linhas[-1].strip() == "```":
+            linhas = linhas[:-1]
+        raw = "\n".join(linhas)
     return json.loads(raw.strip())
 
 def converter_regra(texto_natural: str) -> dict:
-    """
-    Converte uma regra em linguagem natural para JSON estruturado.
-    Devolve o dict da regra (com is_valid=False se tiver ambiguidades).
-    """
     rule_id = gerar_rule_id()
     timestamp = datetime.now(timezone.utc).isoformat()
 
@@ -165,15 +177,15 @@ def converter_regra(texto_natural: str) -> dict:
     )
 
     try:
-        raw = chamar_gemini(prompt)
+        raw = chamar_openrouter(prompt)
         regra = parse_json_limpo(raw)
-    except json.JSONDecodeError as e:
-        log.error(f"Gemini devolveu JSON inválido: {e}")
+    except Exception as e:
+        log.error(f"Erro ao processar resposta do LLM: {e}")
         regra = {
             "rule_id": rule_id,
             "created_at": timestamp,
             "natural_language": texto_natural,
-            "description": "Erro na conversão automática",
+            "description": "Erro na conversão automática via OpenRouter",
             "conditions": {
                 "zone_filter": None,
                 "time_filter": None,
@@ -188,10 +200,9 @@ def converter_regra(texto_natural: str) -> dict:
             },
             "validation": {
                 "is_valid": False,
-                "ambiguities": ["Erro interno na conversão. Tenta reformular a regra."],
+                "ambiguities": [f"Erro interno na conversão: {str(e)}. Tenta reformular."],
                 "assumptions": [],
-            },
-            "_parse_error": True,
+            }
         }
 
     regra.setdefault("rule_id", rule_id)
@@ -201,7 +212,6 @@ def converter_regra(texto_natural: str) -> dict:
     return regra
 
 def gerar_mensagem_ambiguidades(texto_natural: str, ambiguidades: list[str]) -> str:
-    """Gera mensagem amigável para o gestor resolver ambiguidades."""
     if not ambiguidades:
         return ""
 
@@ -211,7 +221,7 @@ def gerar_mensagem_ambiguidades(texto_natural: str, ambiguidades: list[str]) -> 
     )
 
     try:
-        return chamar_gemini(prompt)
+        return chamar_openrouter(prompt)
     except Exception as e:
         log.error(f"Erro ao gerar mensagem de ambiguidades: {e}")
         ambigs_formatadas = "\n".join(f"  {i+1}. {a}" for i, a in enumerate(ambiguidades))
@@ -222,10 +232,6 @@ def gerar_mensagem_ambiguidades(texto_natural: str, ambiguidades: list[str]) -> 
         )
 
 def verificar_condicoes(regra: dict, inspecao: dict) -> tuple[bool, str]:
-    """
-    Verifica se uma regra dispara face a um resultado de inspeção.
-    Devolve (disparou: bool, motivo: str).
-    """
     cond = regra.get("conditions", {})
     disparou = False
     motivos = []
@@ -252,12 +258,14 @@ def verificar_condicoes(regra: dict, inspecao: dict) -> tuple[bool, str]:
 
     fill_rate_threshold = cond.get("fill_rate_threshold")
     if fill_rate_threshold is not None:
-        fill_rate_atual = inspecao.get("shelf_fill_rate", 1.0)
-        if fill_rate_atual < fill_rate_threshold:
+        fill_rate_atual = inspecao.get("shelf_fill_rate", 100.0)
+        
+        thresh = fill_rate_threshold * 100 if fill_rate_threshold <= 1.0 else fill_rate_threshold
+        atual = fill_rate_atual * 100 if fill_rate_atual <= 1.0 else fill_rate_atual
+        
+        if atual < thresh:
             disparou = True
-            motivos.append(
-                f"fill_rate {fill_rate_atual:.0%} abaixo do limiar {fill_rate_threshold:.0%}"
-            )
+            motivos.append(f"Ocupação atual ({atual:.1f}%) abaixo do limiar ({thresh:.1f}%)")
 
     issue_types = cond.get("issue_types", [])
     if issue_types:
@@ -265,7 +273,7 @@ def verificar_condicoes(regra: dict, inspecao: dict) -> tuple[bool, str]:
         tipos_encontrados = [t for t in issue_types if t in issues_inspecao]
         if tipos_encontrados:
             disparou = True
-            motivos.append(f"issues encontrados: {', '.join(tipos_encontrados)}")
+            motivos.append(f"Anomalias encontradas do tipo: {', '.join(tipos_encontrados)}")
 
     severity_threshold = cond.get("severity_threshold")
     if severity_threshold:
@@ -277,47 +285,47 @@ def verificar_condicoes(regra: dict, inspecao: dict) -> tuple[bool, str]:
         ]
         if issues_graves:
             disparou = True
-            motivos.append(
-                f"{len(issues_graves)} issue(s) com severidade >= {severity_threshold}"
-            )
+            motivos.append(f"{len(issues_graves)} anomalia(s) com severidade igual/superior a '{severity_threshold}'")
 
     location_filter = cond.get("location_filter", "any")
     if location_filter != "any" and disparou:
         mapa_loc = {
-            "bottom": ["inferior", "baixo", "bottom"],
-            "middle": ["central", "meio", "middle"],
-            "top": ["superior", "cima", "top"],
+            "bottom": ["inferior", "baixo", "bottom", "fundo"],
+            "middle": ["central", "meio", "middle", "média"],
+            "top": ["superior", "cima", "top", "topo"],
         }
         termos = mapa_loc.get(location_filter, [])
         issues_na_loc = [
             i for i in inspecao.get("issues", [])
             if any(t in i.get("location", "").lower() for t in termos)
         ]
-        if not issues_na_loc and location_filter != "any":
+        if not issues_na_loc:
             disparou = False
-            motivos.append(f"Nenhum issue na localização '{location_filter}'")
+            motivos.append(f"Nenhum problema localizado na secção '{location_filter}'")
 
     if disparou:
         return True, " | ".join(motivos)
-    return False, "Nenhuma condição satisfeita"
+    return False, "Nenhuma condição de ativação cumprida."
 
 def gerar_notificacao(regra: dict, inspecao: dict, motivo: str) -> dict:
-    """Gera a notificação quando uma regra dispara."""
     template = regra.get("action", {}).get(
         "notification_message",
         "Regra {rule_id} disparada na zona {zone_id}"
     )
 
-    mensagem = template.format(
-        rule_id=regra.get("rule_id", ""),
-        zone_id=inspecao.get("zone_id", ""),
-        fill_rate=f"{inspecao.get('shelf_fill_rate', 0):.0%}",
-        issue_count=len(inspecao.get("issues", [])),
-        timestamp=inspecao.get("timestamp", ""),
-        inspection_id=inspecao.get("inspection_id", ""),
-    )
+    mensagem = template
+    placeholders = {
+        "{zone_id}": str(inspecao.get("zone_id", "")),
+        "{fill_rate}": f"{inspecao.get('shelf_fill_rate', 0)}%",
+        "{issue_count}": str(len(inspecao.get("issues", []))),
+        "{timestamp}": str(inspecao.get("timestamp", "")),
+        "{rule_id}": str(regra.get("rule_id", ""))
+    }
+    for ph, val in placeholders.items():
+        mensagem = mensagem.replace(ph, val)
 
     return {
+        "alert_id": f"ALT_{inspecao.get('inspection_id', 'UNKNOWN')}_{regra.get('rule_id')}",
         "rule_id": regra.get("rule_id"),
         "alert_level": regra.get("action", {}).get("alert_level", "warning"),
         "mensagem": mensagem,
@@ -328,17 +336,13 @@ def gerar_notificacao(regra: dict, inspecao: dict, motivo: str) -> dict:
     }
 
 def executar_regras(inspecao: dict) -> list[dict]:
-    """
-    Executa todas as regras guardadas contra uma inspeção.
-    Produz logs e devolve lista de notificações geradas.
-    """
     regras = carregar_todas_regras()
     regras_validas = [r for r in regras if r.get("validation", {}).get("is_valid", False)]
 
     log_entries = []
     notificacoes = []
 
-    log.info(f"A executar {len(regras_validas)} regras para {inspecao.get('inspection_id')}")
+    log.info(f"A avaliar {len(regras_validas)} regras para a inspeção {inspecao.get('inspection_id')}")
 
     for regra in regras_validas:
         rule_id = regra.get("rule_id")
@@ -354,140 +358,126 @@ def executar_regras(inspecao: dict) -> list[dict]:
         log_entries.append(entry)
 
         if disparou:
-            log.info(f"   {rule_id} DISPAROU: {motivo}")
+            log.info(f"   REGRA {rule_id} ATIVADA: {motivo}")
             notificacao = gerar_notificacao(regra, inspecao, motivo)
             notificacoes.append(notificacao)
-        else:
-            log.debug(f"  - {rule_id} não disparou: {motivo}")
 
     if log_entries:
         log_file = LOGS_DIR / f"rules_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(log_file, "w", encoding="utf-8") as f:
-            json.dump({
-                "inspection_id": inspecao.get("inspection_id"),
-                "total_regras_verificadas": len(regras_validas),
-                "total_disparadas": len(notificacoes),
-                "entries": log_entries,
-            }, f, ensure_ascii=False, indent=2)
+        log_file.write_text(json.dumps({
+            "inspection_id": inspecao.get("inspection_id"),
+            "total_regras_verificadas": len(regras_validas),
+            "total_disparadas": len(notificacoes),
+            "entries": log_entries,
+        }, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    log.info(f"Execução concluída: {len(notificacoes)}/{len(regras_validas)} regras dispararam")
+    log.info(f"Processamento concluído. {len(notificacoes)} alerta(s) emitido(s).")
     return notificacoes
 
 def cmd_add(texto: str):
-    """Adiciona uma nova regra."""
-    print(f"\nA converter regra: '{texto}'")
-    print("A chamar Gemini...")
+    print(f"\nA converter a regra do gestor: '{texto}'")
+    print("A enviar para o OpenRouter...")
 
     regra = converter_regra(texto)
     ambiguidades = regra.get("validation", {}).get("ambiguities", [])
 
     if ambiguidades:
-        print("\n A regra tem ambiguidades:")
+        print("\nAtenção: A regra submetida possui ambiguidades:")
         msg = gerar_mensagem_ambiguidades(texto, ambiguidades)
-        print(msg)
-        print("\nA regra foi guardada como INVÁLIDA. Reformula e adiciona novamente.")
+        print(f"\n[Resposta do Sistema]:\n{msg}")
+        print("\nRegra guardada com o estado INVÁLIDA. O gestor necessita de a clarificar.")
         regra["validation"]["is_valid"] = False
     else:
         regra["validation"]["is_valid"] = True
-        print("\n Regra convertida com sucesso:")
-        print(f"  Descrição: {regra.get('description')}")
-        print(f"  Alert level: {regra.get('action', {}).get('alert_level')}")
+        print("\nRegra convertida e validada com sucesso:")
+        print(f"  Descrição formal: {regra.get('description')}")
+        print(f"  Nível do Alerta: {regra.get('action', {}).get('alert_level').upper()}")
         if regra.get("validation", {}).get("assumptions"):
-            print(f"  Pressupostos assumidos:")
+            print(f"  Pressupostos assumidos pela IA:")
             for a in regra["validation"]["assumptions"]:
                 print(f"    - {a}")
 
     ficheiro = guardar_regra(regra)
-    print(f"\n Regra guardada: {ficheiro}")
+    print(f"Ficheiro de configuração guardado em: {ficheiro}")
     return regra
 
 def cmd_list():
-    """Lista todas as regras."""
     regras = carregar_todas_regras()
     if not regras:
-        print("Nenhuma regra definida.")
+        print("Nenhuma regra configurada no sistema.")
         return
 
-    print(f"\n{'='*60}")
-    print(f"{'ID':<12} {'VÁLIDA':<8} {'ALERT':<10} DESCRIÇÃO")
-    print(f"{'='*60}")
+    print(f"\n{'='*75}")
+    print(f"{'ID':<12} {'ESTADO':<10} {'ALERTA':<12} DESCRIÇÃO COMPLETA")
+    print(f"{'='*75}")
     for r in regras:
-        valida = "" if r.get("validation", {}).get("is_valid") else ""
-        alert = r.get("action", {}).get("alert_level", "?")
+        valida = "VÁLIDA" if r.get("validation", {}).get("is_valid") else "INVÁLIDA"
+        alert = r.get("action", {}).get("alert_level", "warning").upper()
         desc = r.get("description", r.get("natural_language", ""))[:45]
-        print(f"{r['rule_id']:<12} {valida:<8} {alert:<10} {desc}")
-    print(f"{'='*60}")
-    print(f"Total: {len(regras)} regras")
+        print(f"{r['rule_id']:<12} {valida:<10} {alert:<12} {desc}...")
+    print(f"{'='*75}")
+    print(f"Total: {len(regras)} regras encontradas em {RULES_DIR}\n")
 
 def cmd_delete(rule_id: str):
-    """Elimina uma regra."""
     if eliminar_regra(rule_id):
-        print(f" Regra {rule_id} eliminada.")
+        print(f"Regra {rule_id} removida com sucesso.")
     else:
-        print(f" Regra {rule_id} não encontrada.")
+        print(f"Erro: Regra {rule_id} não encontrada.")
 
 def cmd_test(rule_id: str, inspection_path: str):
-    """Testa uma regra contra uma inspeção existente."""
     regra = carregar_regra(rule_id)
     if not regra:
-        print(f" Regra {rule_id} não encontrada.")
+        print(f"Erro: Regra {rule_id} não encontrada.")
         return
 
-    if not Path(inspection_path).exists():
-        print(f" Ficheiro de inspeção não encontrado: {inspection_path}")
+    path_inspecao = Path(inspection_path)
+    if not path_inspecao.exists():
+        print(f"Erro: Ficheiro de inspeção não encontrado em: {inspection_path}")
         return
 
-    with open(inspection_path, encoding="utf-8") as f:
-        inspecao = json.load(f)
-
+    inspecao = json.loads(path_inspecao.read_text(encoding="utf-8"))
     disparou, motivo = verificar_condicoes(regra, inspecao)
 
-    print(f"\nTeste da regra {rule_id}")
-    print(f"Inspeção: {inspecao.get('inspection_id')}")
-    print(f"Zona: {inspecao.get('zone_id')}")
-    print(f"Fill rate: {inspecao.get('shelf_fill_rate', 'N/A')}")
-    print(f"Issues: {len(inspecao.get('issues', []))}")
-    print(f"\nResultado: {'DISPAROU' if disparou else 'Não disparou'}")
-    print(f"Motivo: {motivo}")
+    print(f"\n=== Teste de Execução da Regra: {rule_id} ===")
+    print(f"Ficheiro de Inspeção: {inspecao.get('inspection_id')}")
+    print(f"Zona Alvo: {inspecao.get('zone_id')} | Ocupação Prateleira: {inspecao.get('shelf_fill_rate')}%")
+    print(f"Contagem de Anomalias: {len(inspecao.get('issues', []))}")
+    print(f"{'-'*45}")
+    print(f"RESULTADO: {'DISPAROU ALERTA' if disparou else 'CONFORME (Não disparou)'}")
+    print(f"Motivo Técnico: {motivo}")
 
     if disparou:
         notif = gerar_notificacao(regra, inspecao, motivo)
-        print(f"\nNotificação gerada:")
-        print(f"  [{notif['alert_level'].upper()}] {notif['mensagem']}")
+        print(f"\n[Notificação Gerada]:")
+        print(f"  Nível: [{notif['alert_level'].upper()}]")
+        print(f"  Mensagem de Saída: {notif['mensagem']}")
 
 def cmd_show(rule_id: str):
-    """Mostra os detalhes de uma regra."""
     regra = carregar_regra(rule_id)
-    if not regra:
-        print(f" Regra {rule_id} não encontrada.")
+    if not hasattr(regra, "get") or not regra:
+        print(f"Erro: Regra {rule_id} não encontrada.")
         return
     print(json.dumps(regra, ensure_ascii=False, indent=2))
 
-# ── Main ──────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Rule Engine — Motor de regras em linguagem natural")
+    parser = argparse.ArgumentParser(description="Rule Engine — Motor de Regras em Linguagem Natural (OpenRouter)")
     sub = parser.add_subparsers(dest="cmd")
 
-    # add
-    p_add = sub.add_parser("add", help="Adiciona uma nova regra")
-    p_add.add_argument("texto", help="Regra em linguagem natural")
+    p_add = sub.add_parser("add", help="Adiciona e traduz uma regra em linguagem natural")
+    p_add.add_argument("texto", help="Texto livre enviado pelo gestor de loja")
 
-    # list
-    sub.add_parser("list", help="Lista todas as regras")
+    sub.add_parser("list", help="Lista todas as regras configuradas")
 
-    # delete
-    p_del = sub.add_parser("delete", help="Elimina uma regra")
+    p_del = sub.add_parser("delete", help="Elimina uma regra do sistema")
     p_del.add_argument("rule_id", help="ID da regra (ex: RULE_001)")
 
-    # test
-    p_test = sub.add_parser("test", help="Testa uma regra contra uma inspeção")
-    p_test.add_argument("rule_id", help="ID da regra")
-    p_test.add_argument("--inspection", required=True, help="Caminho para o JSON de inspeção")
+    p_test = sub.add_parser("test", help="Testa o disparo de uma regra contra uma inspeção")
+    p_test.add_argument("rule_id", help="ID da regra a testar")
+    p_test.add_argument("--inspection", required=True, help="Caminho para o ficheiro JSON da inspeção")
 
-    # show
-    p_show = sub.add_parser("show", help="Mostra detalhes de uma regra")
+    p_show = sub.add_parser("show", help="Exibe a estrutura JSON de uma regra")
     p_show.add_argument("rule_id", help="ID da regra")
 
     args = parser.parse_args()

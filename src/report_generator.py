@@ -4,12 +4,15 @@ import logging
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Optional
+import requests
 
-import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+# CONFIGURAÇÃO DE MODELO ATUALIZADA PARA GPT-4O-MINI VIA OPENROUTER
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+OPENROUTER_MODEL = "openai/gpt-4o-mini"
 
 REPORTS_DIR = Path("data/reports")
 REPORTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -52,21 +55,14 @@ Regras:
 
 Devolve APENAS uma lista numerada, sem texto antes ou depois:"""
 
-PROMPT_CONTEXTO_ZONA = """Com base no histórico de inspeções recuperado, descreve em 2-3 frases
-o padrão histórico de problemas para a zona {zona_id}. Menciona inspection_ids e datas específicas.
-
-HISTÓRICO RECUPERADO:
-{historico}
-
-Se não houver histórico relevante, diz "Sem histórico anterior disponível para esta zona."
-
-Devolve APENAS o texto descritivo:"""
-
 def carregar_inspecoes_sessao(pasta: str, horas: int = 24) -> list[dict]:
-    """Carrega inspeções das últimas `horas` horas de uma pasta."""
     pasta_path = Path(pasta)
     corte = datetime.now(timezone.utc) - timedelta(hours=horas)
     inspecoes = []
+
+    if not pasta_path.exists():
+        log.warning(f"A pasta de sessões '{pasta}' não existe.")
+        return inspecoes
 
     for ficheiro in sorted(pasta_path.glob("*.json")):
         try:
@@ -90,9 +86,11 @@ def carregar_inspecoes_sessao(pasta: str, horas: int = 24) -> list[dict]:
 
 
 def carregar_inspecoes_zona(zona_id: str, dias: int = 14) -> list[dict]:
-    """Carrega inspeções de uma zona específica nos últimos `dias` dias."""
     corte = datetime.now(timezone.utc) - timedelta(days=dias)
     inspecoes = []
+
+    if not INSPECTIONS_DIR.exists():
+        return inspecoes
 
     for ficheiro in sorted(INSPECTIONS_DIR.glob("*.json")):
         try:
@@ -115,20 +113,7 @@ def carregar_inspecoes_zona(zona_id: str, dias: int = 14) -> list[dict]:
     return inspecoes
 
 
-def carregar_todas_regras() -> list[dict]:
-    """Carrega todas as regras persistidas."""
-    regras = []
-    for ficheiro in sorted(RULES_DIR.glob("RULE_*.json")):
-        try:
-            with open(ficheiro, encoding="utf-8") as f:
-                regras.append(json.load(f))
-        except Exception:
-            continue
-    return regras
-
-
 def calcular_estatisticas(inspecoes: list[dict]) -> dict:
-    """Calcula estatísticas agregadas de uma lista de inspeções."""
     if not inspecoes:
         return {}
 
@@ -137,7 +122,14 @@ def calcular_estatisticas(inspecoes: list[dict]) -> dict:
     warnings = sum(1 for i in inspecoes if i.get("overall_status") == "warning")
     oks = sum(1 for i in inspecoes if i.get("overall_status") == "ok")
 
-    fill_rates = [i.get("shelf_fill_rate", 0) for i in inspecoes if i.get("shelf_fill_rate") is not None]
+    fill_rates = []
+    for i in inspecoes:
+        fr = i.get("shelf_fill_rate")
+        if fr is not None:
+            if fr > 1.0:
+                fr = fr / 100.0
+            fill_rates.append(fr)
+            
     fill_rate_medio = sum(fill_rates) / len(fill_rates) if fill_rates else 0
 
     contagem_issues = {}
@@ -164,7 +156,6 @@ def calcular_estatisticas(inspecoes: list[dict]) -> dict:
 
 
 def agrupar_por_zona(inspecoes: list[dict]) -> dict:
-    """Agrupa inspeções por zona."""
     por_zona = {}
     for insp in inspecoes:
         zona = insp.get("zone_id", "Z_UNKNOWN")
@@ -175,7 +166,6 @@ def agrupar_por_zona(inspecoes: list[dict]) -> dict:
 
 
 def executar_regras_sessao(inspecoes: list[dict]) -> list[dict]:
-    """Executa todas as regras válidas contra todas as inspeções da sessão."""
     try:
         from rule_engine import executar_regras
     except ImportError:
@@ -191,16 +181,16 @@ def executar_regras_sessao(inspecoes: list[dict]) -> list[dict]:
 
 
 def obter_contexto_historico_zona(zona_id: str, status: str) -> str:
-    """Obtém contexto histórico do RAG para uma zona específica."""
     try:
         from rag_memory import recuperar_contexto
         query = f"problemas históricos na zona {zona_id} {status}"
-        chunks = recuperar_contexto(query, top_k=3)
+        chunks = recuperar_contexto(query, strategy="hybrid", top_k=3)
         if not chunks:
             return "Sem histórico anterior disponível para esta zona."
 
+        # Mantém a integridade do texto sem truncamentos arbitrários
         historico = "\n".join([
-            f"[{c['metadata'].get('inspection_id')}] {c['metadata'].get('timestamp', '')[:10]}: {c['texto'][:200]}"
+            f"[{c['metadata'].get('inspection_id')}] {c['metadata'].get('timestamp', '')[:10]}: {c['texto']}"
             for c in chunks
             if c["metadata"].get("zone_id") == zona_id
         ])
@@ -209,46 +199,89 @@ def obter_contexto_historico_zona(zona_id: str, status: str) -> str:
             return "Sem histórico anterior disponível para esta zona."
 
         return historico
-
     except Exception as e:
-        log.warning(f"RAG não disponível: {e}")
-        return "Sistema RAG não disponível para contexto histórico."
+        log.warning(f"RAG não disponível para contexto por zona: {e}")
+        return "Sistema RAG não disponível."
 
 
 def obter_contexto_historico_geral(stats: dict) -> str:
-    """Obtém padrões históricos gerais via RAG."""
     try:
         from rag_memory import recuperar_contexto
         issues_str = ", ".join([t for t, _ in stats.get("issues_frequentes", [])[:3]])
         query = f"padrões históricos de problemas: {issues_str}"
-        chunks = recuperar_contexto(query, top_k=5)
+        chunks = recuperar_contexto(query, strategy="hybrid", top_k=5)
         if not chunks:
             return "Sem histórico disponível."
+            
         return "\n".join([
             f"- [{c['metadata'].get('inspection_id')}] {c['metadata'].get('timestamp', '')[:16]} "
-            f"zona {c['metadata'].get('zone_id')}: {c['texto'][:150]}"
+            f"zona {c['metadata'].get('zone_id')}: {c['texto']}"
             for c in chunks
         ])
-    except Exception:
+    except Exception as e:
+        log.warning(f"RAG não disponível para contexto geral: {e}")
         return "Sistema RAG não disponível."
 
 
 def chamar_gemini(prompt: str) -> str:
-    """Chama Gemini Flash para geração de texto."""
+    """Gera texto usando o OpenRouter através do SDK ou Requests com captura de erros."""
+    if not OPENROUTER_API_KEY:
+        log.error("OPENROUTER_API_KEY não encontrada no ficheiro .env")
+        return "[Erro: API Key em falta]"
+
+    # Abordagem Principal: SDK oficial 'openai'
     try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(
-            prompt,
-            generation_config={"temperature": 0.3},
+        from openai import OpenAI
+        
+        client = OpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=OPENROUTER_API_KEY
         )
-        return response.text.strip()
+        
+        response = client.chat.completions.create(
+            model=OPENROUTER_MODEL,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.3,
+            extra_headers={
+                "HTTP-Referer": "http://localhost:3000",
+                "X-Title": "Retail Vision Report Generator"
+            }
+        )
+        return response.choices[0].message.content.strip()
+        
+    except ImportError:
+        # Fallback caso a biblioteca 'openai' não esteja no ambiente
+        log.info("Biblioteca 'openai' não detetada. A executar chamada via requests...")
+        url = "https://openrouter.ai/api/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "http://localhost:3000",
+            "X-Title": "Retail Vision Report Generator"
+        }
+        
+        payload = {
+            "model": OPENROUTER_MODEL,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.3
+        }
+
+        try:
+            response = requests.post(url, headers=headers, json=payload, timeout=30)
+            response.raise_for_status()
+            dados = response.json()
+            return dados["choices"][0]["message"]["content"].strip()
+        except Exception as e:
+            log.error(f"Erro ao chamar OpenRouter (requests): {e}")
+            return "[Erro ao gerar conteúdo via API OpenRouter]"
+            
     except Exception as e:
-        log.error(f"Erro ao chamar Gemini: {e}")
-        return "[Erro ao gerar conteúdo via API]"
+        # Captura erros de rotas/créditos ou modelos inválidos da API para o programa não ir abaixo
+        log.error(f"Erro na resposta da API OpenRouter (SDK): {e}")
+        return f"[Erro temporário da API: {e}]"
 
 
 def gerar_sumario_executivo(stats: dict) -> str:
-    """Gera o sumário executivo via Gemini."""
     issues_freq_str = ", ".join([
         f"{tipo} ({count}x)" for tipo, count in stats.get("issues_frequentes", [])[:3]
     ]) or "nenhum"
@@ -266,7 +299,6 @@ def gerar_sumario_executivo(stats: dict) -> str:
 
 
 def gerar_recomendacoes(stats: dict, contexto_historico: str) -> str:
-    """Gera recomendações ordenadas por urgência via Gemini."""
     problemas_str = json.dumps(
         stats.get("todos_issues", [])[:20], 
         ensure_ascii=False,
@@ -274,13 +306,12 @@ def gerar_recomendacoes(stats: dict, contexto_historico: str) -> str:
     )
     prompt = PROMPT_RECOMENDACOES.format(
         problemas=problemas_str,
-        contexto_historico=contexto_historico[:500],
+        contexto_historico=contexto_historico,
     )
     return chamar_gemini(prompt)
 
 
 def construir_secao_problemas_por_zona(por_zona: dict) -> str:
-    """Constrói a secção 2: Problemas por zona."""
     linhas = ["## 2. Problemas por Zona\n"]
 
     if not por_zona:
@@ -300,6 +331,9 @@ def construir_secao_problemas_por_zona(por_zona: dict) -> str:
         for insp in inspecoes:
             status = insp.get("overall_status", "?")
             fill = insp.get("shelf_fill_rate", 0)
+            if fill > 1.0:
+                fill = fill / 100.0
+                
             insp_id = insp.get("inspection_id", "?")
             ts = insp.get("timestamp", "")[:16]
 
@@ -326,7 +360,7 @@ def construir_secao_problemas_por_zona(por_zona: dict) -> str:
 
             contexto = obter_contexto_historico_zona(zona_id, status)
             if contexto and "Sem histórico" not in contexto and "não disponível" not in contexto:
-                linhas.append(f"\n> **Contexto histórico:** {contexto[:300]}")
+                linhas.append(f"\n> **Contexto histórico:** {contexto}")
 
             linhas.append("")
 
@@ -334,7 +368,6 @@ def construir_secao_problemas_por_zona(por_zona: dict) -> str:
 
 
 def construir_secao_regras(notificacoes: list[dict]) -> str:
-    """Constrói a secção 3: Regras disparadas."""
     linhas = ["## 3. Regras Disparadas\n"]
 
     if not notificacoes:
@@ -365,7 +398,6 @@ def construir_secao_regras(notificacoes: list[dict]) -> str:
 
 
 def construir_secao_historico(contexto_geral: str, stats: dict) -> str:
-    """Constrói a secção 4: Contexto histórico relevante."""
     linhas = ["## 4. Contexto Histórico Relevante\n"]
 
     if not contexto_geral or "não disponível" in contexto_geral.lower():
@@ -380,7 +412,6 @@ def construir_secao_historico(contexto_geral: str, stats: dict) -> str:
 
 
 def construir_secao_trajetoria() -> str:
-    """Secção 6: Integração com trajectória (placeholder se não implementada)."""
     linhas = ["## 6. Integração com Dados de Trajectória\n"]
 
     try:
@@ -402,10 +433,6 @@ def gerar_relatorio(
     titulo: str = "Relatório de Inspeção",
     guardar: bool = True,
 ) -> str:
-    """
-    Gera um relatório completo em Markdown para uma lista de inspeções.
-    Devolve o conteúdo do relatório como string.
-    """
     if not inspecoes:
         return "# Relatório de Inspeção\n\n_Nenhuma inspeção para reportar._"
 
@@ -413,9 +440,7 @@ def gerar_relatorio(
 
     stats = calcular_estatisticas(inspecoes)
     por_zona = agrupar_por_zona(inspecoes)
-
-    notificacoes = executar_regras_sessao(inspecoes)
-
+    notificacoes = executing_notifs = executar_regras_sessao(inspecoes)
     contexto_geral = obter_contexto_historico_geral(stats)
 
     log.info("A gerar sumário executivo...")
@@ -435,7 +460,6 @@ def gerar_relatorio(
         "---",
         "",
 
-        # Secção 1 — Sumário executivo
         "## 1. Sumário Executivo\n",
         sumario,
         "",
@@ -448,21 +472,14 @@ def gerar_relatorio(
         f"| Fill rate médio | {stats['fill_rate_medio']:.0%} |",
         "",
 
-        # Secção 2 — Problemas por zona
         construir_secao_problemas_por_zona(por_zona),
-
-        # Secção 3 — Regras disparadas
         construir_secao_regras(notificacoes),
-
-        # Secção 4 — Contexto histórico
         construir_secao_historico(contexto_geral, stats),
 
-        # Secção 5 — Recomendações
         "## 5. Recomendações\n",
         recomendacoes,
         "",
 
-        # Secção 6 — Trajectória
         construir_secao_trajetoria(),
         "",
         "---",
@@ -486,19 +503,13 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Report Generator — Relatórios de inspeção")
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--session", metavar="PASTA",
-                       help="Gera relatório de todas as inspeções da pasta (últimas 24h)")
-    group.add_argument("--inspection", metavar="FICHEIRO",
-                       help="Gera relatório de uma inspeção específica")
-    group.add_argument("--zone", metavar="ZONA_ID",
-                       help="Gera relatório de uma zona nos últimos N dias")
+    group.add_argument("--session", metavar="PASTA", help="Gera relatório de todas as inspeções da pasta (últimas 24h)")
+    group.add_argument("--inspection", metavar="FICHEIRO", help="Gera relatório de uma inspeção específica")
+    group.add_argument("--zone", metavar="ZONA_ID", help="Gera relatório de uma zona nos últimos N dias")
 
-    parser.add_argument("--period", type=int, default=14,
-                        help="Período em dias para --zone (padrão: 14)")
-    parser.add_argument("--hours", type=int, default=24,
-                        help="Período em horas para --session (padrão: 24)")
-    parser.add_argument("--no-save", action="store_true",
-                        help="Não guarda o relatório em disco")
+    parser.add_argument("--period", type=int, default=14, help="Período em dias para --zone (padrão: 14)")
+    parser.add_argument("--hours", type=int, default=24, help="Período em horas para --session (padrão: 24)")
+    parser.add_argument("--no-save", action="store_true", help="Não guarda o relatório em disco")
 
     args = parser.parse_args()
 
@@ -515,14 +526,17 @@ if __name__ == "__main__":
             print(relatorio)
 
     elif args.inspection:
-        with open(args.inspection, encoding="utf-8") as f:
-            inspecao = json.load(f)
-        relatorio = gerar_relatorio(
-            [inspecao],
-            titulo=f"Relatório — {inspecao.get('inspection_id')}",
-            guardar=not args.no_save,
-        )
-        print(relatorio)
+        if not Path(args.inspection).exists():
+            print(f"Erro: O ficheiro de inspeção '{args.inspection}' não existe.")
+        else:
+            with open(args.inspection, encoding="utf-8") as f:
+                inspecao = json.load(f)
+            relatorio = gerar_relatorio(
+                [inspecao],
+                titulo=f"Relatório — {inspecao.get('inspection_id')}",
+                guardar=not args.no_save,
+            )
+            print(relatorio)
 
     elif args.zone:
         inspecoes = carregar_inspecoes_zona(args.zone, dias=args.period)

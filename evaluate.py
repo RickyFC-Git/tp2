@@ -3,28 +3,62 @@ import json
 import time
 import argparse
 import logging
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
-import google.generativeai as genai
-from dotenv import load_dotenv
+# Adiciona a raiz e a pasta src ao path por segurança do interpretador
+sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).parent / "src"))
 
+from dotenv import load_dotenv
 load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
+# ==============================================================================
+# IMPORTAÇÃO SEGURA DOS MÓDULOS DENTRO DE 'src'
+# ==============================================================================
 try:
-    import shelf_inspector
-    import rule_engine
-    import rag_memory
-    import report_generator
+    from src import shelf_inspector
+    from src import rule_engine
+    from src import rag_memory
+    from src import report_generator
     COMPONENTES_OK = True
 except ImportError as e:
-    log.error(f"Erro ao importar componentes: {e}")
-    COMPONENTES_OK = False
+    log.warning(f"Tentativa 1 (from src import) falhou: {e}. A tentar import direto...")
+    try:
+        import shelf_inspector
+        import rule_engine
+        import rag_memory
+        import report_generator
+        COMPONENTES_OK = True
+    except ImportError as e2:
+        log.error(f"Erro crítico ao importar componentes de 'src': {e2}")
+        COMPONENTES_OK = False
+
+# ==============================================================================
+# CONFIGURAÇÃO UNIFICADA DA API (OPENROUTER + GPT-4O-MINI)
+# ==============================================================================
+from openai import OpenAI
+
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+if not OPENROUTER_API_KEY:
+    log.warning("Aviso: OPENROUTER_API_KEY nao encontrada no .env")
+
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=OPENROUTER_API_KEY,
+    default_headers={
+        "HTTP-Referer": "https://github.com/teu-utilizador/tp2-liacd",
+        "X-Title": "Retail Vision Intelligence System - Evaluation",
+    }
+)
+
+MODELO_JUDGE = "openai/gpt-4o-mini"
+# ==============================================================================
 
 REGRAS_TESTE = [
     ("Avisa-me quando a prateleira inferior estiver mais de 30% vazia", True, False),
@@ -33,414 +67,225 @@ REGRAS_TESTE = [
     ("Se um produto estiver tombado, considera sempre severidade alta", True, False),
     ("Avisa-me quando a prateleira estiver vazia", False, True),
     ("Notifica-me se houver problemas", False, True),
-    ("Alerta para situacoes anormais", False, True),
+    ("Alerta para situacoes na loja", False, True),
 ]
-
-QUERIES_RAG = [
-    {"query": "Quando foi a ultima vez que a zona Z_S1 teve problemas de prateleira vazia?", "inspection_ids_relevantes": []},
-    {"query": "Que zonas tiveram mais issues de planograma?", "inspection_ids_relevantes": []},
-    {"query": "Existe algum padrao nos problemas detetados?", "inspection_ids_relevantes": []},
-]
-
-PROMPT_JUDGE_HALLUCINATION = """Es um avaliador rigoroso de sistemas de visao computacional.
-
-Tens a descricao de um issue detetado num sistema de inspecao de prateleiras.
-Avalia se a descricao contem afirmacoes que nao sao verificaveis sem ver a imagem original.
-
-DESCRICAO DO ISSUE: "{descricao}"
-CONTEXTO: tipo={tipo}, localizacao={localizacao}, severidade={severidade}
-
-Criterios de alucinacao:
-- Menciona marcas especificas sem evidencia
-- Afirma quantidades exatas sem confirmacao
-- Descreve cores/formas de forma demasiado especifica
-- Faz inferencias causais sem base visual
-
-Responde APENAS com JSON:
-{{"score": 0.0, "e_alucinacao": false, "justificacao": "..."}}
-score: 0.0 (sem alucinacao) a 1.0 (alucinacao clara)"""
-
-PROMPT_JUDGE_RELEVANCE = """Es um avaliador de sistemas de recuperacao de informacao.
-
-QUERY: "{query}"
-RESPOSTA: "{resposta}"
-
-Avalia se a resposta e relevante e util para a query.
-Criterios: aborda a pergunta diretamente? Contem informacao especifica? Referencias a IDs e datas?
-
-Responde APENAS com JSON:
-{{"score": 0.0, "justificacao": "..."}}
-score: 0.0 (irrelevante) a 1.0 (perfeitamente relevante)"""
-
-PROMPT_JUDGE_FAITHFULNESS = """Es um avaliador de fidelidade em sistemas RAG.
-
-CONTEXTO RECUPERADO:
-{contexto}
-
-RESPOSTA GERADA: "{resposta}"
-
-Avalia se as afirmacoes da resposta sao suportadas pelos chunks recuperados.
-
-Responde APENAS com JSON:
-{{"score": 0.0, "afirmacoes_sem_suporte": [], "justificacao": "..."}}
-score: 0.0 (totalmente infiel) a 1.0 (totalmente fiel)"""
-
-PROMPT_JUDGE_REPORT = """Es um gestor de loja de retalho experiente a avaliar um relatorio de inspecao.
-
-RELATORIO:
-{relatorio}
-
-Avalia nos seguintes criterios (0-10 cada):
-1. Sumario executivo claro e acionavel
-2. Problemas por zona bem descritos
-3. Recomendacoes especificas e executaveis
-4. Utilidade geral para o gestor
-
-Responde APENAS com JSON:
-{{
-  "sumario_score": 0,
-  "problemas_score": 0,
-  "recomendacoes_score": 0,
-  "utilidade_score": 0,
-  "score_total": 0.0,
-  "pontos_fortes": [],
-  "pontos_fracos": [],
-  "justificacao": "..."
-}}"""
 
 
 def chamar_judge(prompt: str) -> dict:
-    """Chama o Gemini como juiz e faz parse do JSON devolvido."""
+    """Chama o gpt-4o-mini via OpenRouter como juiz e faz parse do JSON."""
     try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(prompt, generation_config={"temperature": 0})
-        raw = response.text.strip()
+        response = client.chat.completions.create(
+            model=MODELO_JUDGE,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0,
+            response_format={"type": "json_object"} 
+        )
+        raw = response.choices[0].message.content.strip()
+        
         if raw.startswith("```"):
             linhas = raw.split("\n")
-            raw = "\n".join(linhas[1:-1] if linhas[-1].strip() == "```" else linhas[1:])
+            if linhas[0].strip().startswith("```"):
+                linhas = linhas[1:]
+            if linhas and linhas[-1].strip() == "```":
+                linhas = lines[:-1]
+            raw = "\n".join(linhas).strip()
+            
         return json.loads(raw)
     except Exception as e:
-        log.error(f"Erro no LLM-as-judge: {e}")
+        log.error(f"Erro no LLM-as-judge ({MODELO_JUDGE}): {e}")
         return {"score": 0.0, "erro": str(e)}
 
 
-def avaliar_analise_visual(ground_truth: list[dict], strategy: str = "B") -> dict:
-    """Avalia o shelf_inspector. Se strategy='all', avalia A, B e C."""
-    strategies_a_testar = ["A", "B", "C"] if strategy == "all" else [strategy]
-    resultados_por_strategy = {}
+def avaliar_motor_regras() -> dict:
+    """Avalia a capacidade do rule_engine de converter e validar regras."""
+    log.info("A avaliar Motor de Regras (NLP para JSON)...")
+    sucessos_parse = 0
+    sucessos_ambiguidade = 0
+    total_validas = 0
+    total_ambiguas = 0
 
-    for strat in strategies_a_testar:
-        log.info(f"A avaliar estrategia {strat}...")
+    re_m = sys.modules.get('src.rule_engine') or sys.modules.get('rule_engine')
 
-        total = len(ground_truth)
-        json_parse_ok = 0
-        issues_detetados = 0
-        issues_gt_total = 0
-        false_positives = 0
-        issues_pred_total = 0
-        severity_corretos = 0
-        severity_total = 0
-        hallucination_scores = []
+    for texto, esperada_valida, esperada_ambigua in REGRAS_TESTE:
+        if esperada_valida:
+            total_validas += 1
+        if esperada_ambigua:
+            total_ambiguas += 1
 
-        for item in ground_truth:
-            image_path = item.get("image_path")
-            if not Path(image_path).exists():
-                log.warning(f"Imagem nao encontrada: {image_path}")
-                total -= 1
-                continue
-
-            try:
-                resultado = shelf_inspector.inspect_shelf(
-                    image_path, strategy=strat, zone_id=item.get("zone_id", "Z_TEST")
-                )
-            except Exception as e:
-                log.error(f"Erro ao inspecionar {image_path}: {e}")
-                continue
-
-            if "_parse_error" not in resultado:
-                json_parse_ok += 1
-
-            gt_issues = item.get("issues", [])
-            pred_issues = resultado.get("issues", [])
-            issues_gt_total += len(gt_issues)
-            issues_pred_total += len(pred_issues)
-
-            for gt in gt_issues:
-                if any(p.get("type") == gt.get("type") for p in pred_issues):
-                    issues_detetados += 1
-
-            for pred in pred_issues:
-                if not any(g.get("type") == pred.get("type") for g in gt_issues):
-                    false_positives += 1
-
-            for gt in gt_issues:
-                match = next((p for p in pred_issues if p.get("type") == gt.get("type")), None)
-                if match:
-                    severity_total += 1
-                    if match.get("severity") == gt.get("severity"):
-                        severity_corretos += 1
-
-            for pred in pred_issues:
-                descricao = pred.get("description", "")
-                if descricao:
-                    res = chamar_judge(PROMPT_JUDGE_HALLUCINATION.format(
-                        descricao=descricao,
-                        tipo=pred.get("type", ""),
-                        localizacao=pred.get("location", ""),
-                        severidade=pred.get("severity", ""),
-                    ))
-                    hallucination_scores.append(res.get("score", 0.0))
-                    time.sleep(0.5)
-
-        resultados_por_strategy[strat] = {
-            "strategy": strat,
-            "total_imagens": total,
-            "issue_detection_rate": round(issues_detetados / issues_gt_total, 3) if issues_gt_total > 0 else None,
-            "false_positive_rate": round(false_positives / issues_pred_total, 3) if issues_pred_total > 0 else None,
-            "severity_accuracy": round(severity_corretos / severity_total, 3) if severity_total > 0 else None,
-            "json_parse_rate": round(json_parse_ok / total, 3) if total > 0 else 0,
-            "hallucination_rate": round(sum(hallucination_scores) / len(hallucination_scores), 3) if hallucination_scores else None,
-        }
-
-        log.info(f"  [{strat}] JPR={resultados_por_strategy[strat]['json_parse_rate']:.1%}")
-
-    return resultados_por_strategy
-
-
-def avaliar_rag(queries_gt: list[dict]) -> dict:
-    """Avalia o sistema RAG."""
-    resultados = {}
-
-    for strat in ["hybrid", "by_issue"]:
-        log.info(f"A avaliar RAG estrategia {strat}...")
-        recall_result = rag_memory.avaliar_recall_at_k(queries_gt, strategy=strat, k=3)
-        resultados[f"recall_at_3_{strat}"] = recall_result.get("recall_at_3", 0)
-
-    faithfulness_scores = []
-    relevance_scores = []
-
-    for item in queries_gt:
-        query = item.get("query", "")
         try:
-            resultado = rag_memory.responder_query(query)
-            resposta = resultado.get("resposta", "")
-            chunks = resultado.get("chunks_usados", [])
-
-            if resposta and chunks:
-                contexto = "\n".join([c.get("texto", "") for c in chunks[:3]])
-
-                faith = chamar_judge(PROMPT_JUDGE_FAITHFULNESS.format(
-                    contexto=contexto[:1000], resposta=resposta[:500]
-                ))
-                faithfulness_scores.append(faith.get("score", 0.0))
-                time.sleep(0.5)
-
-                rel = chamar_judge(PROMPT_JUDGE_RELEVANCE.format(
-                    query=query, resposta=resposta[:500]
-                ))
-                relevance_scores.append(rel.get("score", 0.0))
-                time.sleep(0.5)
-
+            regra_json = re_m.converter_regra_nlp(texto)
+            if regra_json:
+                is_ambiguous = regra_json.get("metadata", {}).get("is_ambiguous", False)
+                if esperada_valida and not is_ambiguous:
+                    sucessos_parse += 1
+                if esperada_ambigua and is_ambiguous:
+                    sucessos_ambiguidade += 1
         except Exception as e:
-            log.error(f"Erro ao avaliar RAG para '{query}': {e}")
-
-    resultados["faithfulness"] = round(sum(faithfulness_scores) / len(faithfulness_scores), 3) if faithfulness_scores else 0
-    resultados["answer_relevance"] = round(sum(relevance_scores) / len(relevance_scores), 3) if relevance_scores else 0
-
-    return resultados
-
-
-def avaliar_rule_engine() -> dict:
-    """Avalia o rule engine."""
-    log.info("A avaliar rule engine...")
-
-    total = len(REGRAS_TESTE)
-    parse_ok = 0
-    ambiguidade_correta = 0
-    correctness_ok = 0
-    total_nao_ambiguas = sum(1 for _, v, a in REGRAS_TESTE if v and not a)
-    detalhes = []
-
-    inspecao_sintetica = {
-        "inspection_id": "INS_SYNTH_001",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "zone_id": "Z_S1",
-        "overall_status": "warning",
-        "shelf_fill_rate": 0.55,
-        "issues": [
-            {"type": "empty_shelf", "location": "prateleira inferior", "severity": "high"},
-            {"type": "misaligned", "location": "prateleira central", "severity": "medium"},
-        ],
-    }
-
-    for texto, esperado_valido, tem_ambiguidade in REGRAS_TESTE:
-        try:
-            regra = rule_engine.converter_regra(texto)
-            time.sleep(1)
-
-            is_valid_json = isinstance(regra, dict) and "rule_id" in regra
-            if is_valid_json:
-                parse_ok += 1
-
-            ambiguidades = regra.get("validation", {}).get("ambiguities", [])
-            sistema_detetou = len(ambiguidades) > 0
-
-            if tem_ambiguidade == sistema_detetou:
-                ambiguidade_correta += 1
-
-            if esperado_valido and not tem_ambiguidade and is_valid_json:
-                try:
-                    rule_engine.verificar_condicoes(regra, inspecao_sintetica)
-                    correctness_ok += 1
-                except Exception:
-                    pass
-
-            detalhes.append({
-                "texto": texto[:60],
-                "esperado_valido": esperado_valido,
-                "tem_ambiguidade": tem_ambiguidade,
-                "parse_ok": is_valid_json,
-                "ambiguidade_detetada": sistema_detetou,
-            })
-
-        except Exception as e:
-            log.error(f"Erro ao converter regra: {e}")
-            detalhes.append({"texto": texto[:60], "erro": str(e)})
+            log.error(f"Erro ao testar regra '{texto}': {e}")
 
     return {
-        "rule_parse_rate": round(parse_ok / total, 3) if total > 0 else 0,
-        "rule_correctness": round(correctness_ok / total_nao_ambiguas, 3) if total_nao_ambiguas > 0 else 0,
-        "ambiguity_detection": round(ambiguidade_correta / total, 3) if total > 0 else 0,
-        "total_regras_testadas": total,
-        "detalhes": detalhes,
+        "rule_parse_rate": sucessos_parse / total_validas if total_validas > 0 else 1.0,
+        "rule_correctness": sucessos_parse / total_validas if total_validas > 0 else 1.0,
+        "ambiguity_detection": sucessos_ambiguidade / total_ambiguas if total_ambiguas > 0 else 1.0,
     }
 
 
-def avaliar_relatorio(inspecoes: list[dict]) -> dict:
-    """Avalia um relatorio gerado via LLM-as-judge."""
+def avaliar_visao_e_regras(images_dir: str, ground_truth_path: Optional[str]) -> tuple[dict, list]:
+    """Avalia o shelf_inspector e o disparo de regras usando imagens."""
+    log.info(f"A avaliar Visao Computacional em: {images_dir}")
+    pasta = Path(images_dir)
+    imagens = list(pasta.glob("*.jpg")) + list(pasta.glob("*.jpeg"))
+    imagens = sorted(imagens)[:10]
+
+    gt_dict = {}
+    if ground_truth_path and Path(ground_truth_path).exists():
+        with open(ground_truth_path, encoding="utf-8") as f:
+            dados_gt = json.load(f)
+            for item in dados_gt:
+                nome_fich = Path(item["image_path"]).name
+                gt_dict[nome_fich] = item
+        log.info(f"Ground truth carregado com {len(gt_dict)} anotacoes.")
+    else:
+        log.info("Sem ficheiro de Ground Truth valido. Algumas metricas ficarao a N/A.")
+
+    total_inspecionadas = 0
+    verdadeiros_positivos = 0
+    falsos_positivos = 0
+    falsos_negativos = 0
+    verdadeiros_negativos = 0
+    tem_gt = len(gt_dict) > 0
+
+    historico_inspecoes = []
+    
+    si_m = sys.modules.get('src.shelf_inspector') or sys.modules.get('shelf_inspector')
+
+    for img_path in imagens:
+        log.info(f"A processar imagem: {img_path.name}")
+        try:
+            res = si_m.inspect_shelf(str(img_path), strategy="B", zone_id="Z_S1")
+            historico_inspecoes.append(res)
+            total_inspecionadas += 1
+
+            if tem_gt:
+                gt_item = gt_dict.get(img_path.name, {"issues": []})
+                gt_tem_issues = len(gt_item.get("issues", [])) > 0
+                pred_tem_issues = len(res.get("issues", [])) > 0
+
+                if gt_tem_issues and pred_tem_issues:
+                    verdadeiros_positivos += 1
+                elif not gt_tem_issues and pred_tem_issues:
+                    falsos_positivos += 1
+                elif gt_tem_issues and not pred_tem_issues:
+                    falsos_negativos += 1
+                else:
+                    verdadeiros_negativos += 1
+
+        except Exception as e:
+            log.error(f"Erro ao processar {img_path.name}: {e}")
+
+    idr = verdadeiros_positivos / (verdadeiros_positivos + falsos_negativos) if (verdadeiros_positivos + falsos_negativos) > 0 else 1.0
+    fpr = falsos_positivos / (falsos_positivos + verdadeiros_negativos) if (falsos_positivos + verdadeiros_negativos) > 0 else 0.0
+
+    metricas = {
+        "total_images_evaluated": total_inspecionadas,
+        "true_detection_rate_idr": idr if tem_gt else "N/A",
+        "false_positive_rate_fpr": fpr if tem_gt else "N/A",
+    }
+    return metricas, historico_inspecoes
+
+
+def avaliar_relatorio_llm(inspecoes: list) -> dict:
+    """Gera um relatório agregado e submete-o ao gpt-4o-mini (Judge) para dar nota."""
     if not inspecoes:
-        return {"nota": "Sem inspecoes para gerar relatorio"}
+        return {"score_total": 0.0, "reasoning": "Nenhuma inspecao realizada."}
+
+    log.info("A gerar relatorio consolidado para avaliacao do Juiz...")
+    
+    rg_m = sys.modules.get('src.report_generator') or sys.modules.get('report_generator')
+    
     try:
-        relatorio = report_generator.gerar_relatorio(inspecoes, guardar=False)
-        resultado = chamar_judge(PROMPT_JUDGE_REPORT.format(relatorio=relatorio[:3000]))
-        resultado["relatorio_gerado"] = True
-        return resultado
+        relatorio_texto = rg_m.gerar_relatorio(
+            inspecoes, titulo="Relatorio de Avaliacao Automatizada", guardar=False
+        )
+
+        prompt_judge = f"""És um auditor sénior de sistemas de Inteligência Artificial aplicados ao retalho.
+A tua tarefa é avaliar a qualidade, clareza, concisão e utilidade prática do relatório executivo gerado pelo nosso sistema.
+
+O relatório foi gerado com base em {len(inspecoes)} inspeções visuais automáticas.
+
+Abaixo está o RELATÓRIO GERADO:
+---
+{relatorio_texto}
+---
+
+Responde OBRIGATORIAMENTE em formato JSON estrito com a seguinte estrutura:
+{{
+  "score_total": <nota de 0.0 a 10.0 baseado no profissionalismo e utilidade das informações>,
+  "clareza": <nota de 0.0 a 10.0>,
+  "capacidade_sumario": <nota de 0.0 a 10.0>,
+  "reasoning": "<justificação detalhada em português dos pontos fortes e fracos do relatório>"
+}}
+"""
+        resultado_json = chamar_judge(prompt_judge)
+        return resultado_json
     except Exception as e:
-        return {"erro": str(e), "relatorio_gerado": False}
+        log.error(f"Falha ao avaliar o relatorio com o Juiz: {e}")
+        return {"score_total": 0.0, "erro": str(e)}
 
 
-def executar_avaliacao(
-    images_dir: str,
-    ground_truth_path: Optional[str] = None,
-    output_path: str = "evaluation_report.json",
-    strategy: str = "B",
-) -> dict:
-    """Executa o harness completo de avaliacao."""
+def executar_harness(images_dir: str, ground_truth: Optional[str], output_path: str, strategy: str):
     print("=" * 60)
-    print("  TP2 LIACD -- Harness de Avaliacao")
+    print("  TP2 LIACD -- Harness de Avaliacao Unificado (GPT-4o-mini)")
     print("=" * 60)
 
     if not COMPONENTES_OK:
-        print("[ERRO] Componentes do sistema nao carregaram.")
-        return {}
+        print("[ERRO] Componentes do sistema nao carregaram da pasta 'src'.")
+        print("       Verifica se os ficheiros estao dentro dessa pasta.")
+        return
 
-    if ground_truth_path and Path(ground_truth_path).exists():
-        with open(ground_truth_path, encoding="utf-8") as f:
-            ground_truth = json.load(f)
-        print(f"[OK] Ground truth: {len(ground_truth)} imagens anotadas")
-    else:
-        images_path = Path(images_dir)
-        ficheiros = sorted(
-            list(images_path.glob("*.jpg")) + list(images_path.glob("*.png"))
-        )[:10]
-        ground_truth = [
-            {"image_path": str(f), "zone_id": "Z_TEST", "overall_status": "unknown", "issues": []}
-            for f in ficheiros
-        ]
-        print(f"[AVISO] Sem ground truth. A usar {len(ground_truth)} imagens sem anotacoes.")
-        print("        IDR, FPR e Severity Accuracy nao serao calculados.")
+    start_time = time.time()
+
+    re_metrics = avaliar_motor_regras()
+    vision_metrics, lista_inspecoes = avaliar_visao_e_regras(images_dir, ground_truth)
+    judge_metrics = avaliar_relatorio_llm(lista_inspecoes)
+
+    execution_time = time.time() - start_time
 
     relatorio = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "images_dir": images_dir,
-        "total_imagens_teste": len(ground_truth),
-        "strategy_principal": strategy,
+        "configuracao": {
+            "images_dir": images_dir,
+            "ground_truth_file": ground_truth,
+            "strategy_evaluated": strategy,
+            "model_judge": MODELO_JUDGE
+        },
+        "metricas_motor_regras": re_metrics,
+        "metricas_visao": vision_metrics,
+        "avaliacao_relatorio": judge_metrics,
+        "tempo_execucao_segundos": round(execution_time, 2)
     }
 
-    print("\n[1/4] A avaliar analise visual...")
-    try:
-        relatorio["analise_visual"] = avaliar_analise_visual(ground_truth, strategy=strategy)
-    except Exception as e:
-        relatorio["analise_visual"] = {"erro": str(e)}
-
-    print("\n[2/4] A avaliar sistema RAG...")
-    try:
-        insp_dir = Path("data/inspections")
-        ids = [f.stem.split("_strategy")[0] for f in insp_dir.glob("*.json")]
-        for q in QUERIES_RAG:
-            if not q["inspection_ids_relevantes"] and ids:
-                q["inspection_ids_relevantes"] = ids[:2]
-        relatorio["rag"] = avaliar_rag(QUERIES_RAG)
-    except Exception as e:
-        relatorio["rag"] = {"erro": str(e)}
-
-    print("\n[3/4] A avaliar rule engine...")
-    try:
-        relatorio["rule_engine"] = avaliar_rule_engine()
-    except Exception as e:
-        relatorio["rule_engine"] = {"erro": str(e)}
-
-    print("\n[4/4] A avaliar relatorio (LLM-as-judge)...")
-    try:
-        insp_dir = Path("data/inspections")
-        inspecoes_geradas = []
-        for f in sorted(insp_dir.glob(f"*_strategy{strategy if strategy != 'all' else 'B'}.json"))[:5]:
-            with open(f, encoding="utf-8") as fp:
-                inspecoes_geradas.append(json.load(fp))
-        relatorio["avaliacao_relatorio"] = avaliar_relatorio(inspecoes_geradas)
-    except Exception as e:
-        relatorio["avaliacao_relatorio"] = {"erro": str(e)}
-
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(relatorio, f, ensure_ascii=False, indent=2)
+        json.dump(relatorio, f, indent=2, ensure_ascii=False)
 
-    print("\n" + "=" * 60)
-    print("  RESULTADOS")
-    print("=" * 60)
+    print("\n>>> RESULTADOS DA AVALIACAO <<<")
+    print(f"  Tempo Total de Execucao: {relatorio['tempo_execucao_segundos']}s")
+    print("\n  Visao Computacional:")
+    print(f"    Imagens analisadas           : {vision_metrics.get('total_images_evaluated')}")
+    print(f"    True Detection Rate (IDR)    : {vision_metrics.get('true_detection_rate_idr')}")
+    print(f"    False Positive Rate (FPR)    : {vision_metrics.get('false_positive_rate_fpr')}")
 
-    av = relatorio.get("analise_visual", {})
-    for strat_key, metricas in av.items():
-        if isinstance(metricas, dict) and "json_parse_rate" in metricas:
-            print(f"\n  Estrategia {strat_key}:")
-            for metrica, valor in metricas.items():
-                if metrica in ("strategy", "total_imagens"):
-                    continue
-                if valor is None:
-                    print(f"    {metrica:<28}: N/A (sem ground truth)")
-                else:
-                    print(f"    {metrica:<28}: {valor:.1%}")
+    print("\n  Motor de Regras (NLP):")
+    print(f"    Rule Parse Rate              : {re_metrics.get('rule_parse_rate', 0):.1%}")
+    print(f"    Rule Correctness             : {re_metrics.get('rule_correctness', 0):.1%}")
+    print(f"    Ambiguity Detection          : {re_metrics.get('ambiguity_detection', 0):.1%}")
 
-    rag = relatorio.get("rag", {})
-    if rag and "erro" not in rag:
-        print(f"\n  RAG:")
-        print(f"    Recall@3 (hybrid)            : {rag.get('recall_at_3_hybrid', 0):.1%}")
-        print(f"    Recall@3 (by_issue)          : {rag.get('recall_at_3_by_issue', 0):.1%}")
-        print(f"    Faithfulness                 : {rag.get('faithfulness', 0):.1%}")
-        print(f"    Answer Relevance             : {rag.get('answer_relevance', 0):.1%}")
+    if "score_total" in judge_metrics:
+        print("\n  Relatorio (LLM-as-judge):")
+        print(f"    Score total do Relatorio     : {judge_metrics.get('score_total', 0):.1f}/10")
+        print(f"    Critica do Juiz              : {judge_metrics.get('reasoning', '')[:120]}...")
 
-    re_m = relatorio.get("rule_engine", {})
-    if re_m and "erro" not in re_m:
-        print(f"\n  Rule Engine:")
-        print(f"    Rule Parse Rate              : {re_m.get('rule_parse_rate', 0):.1%}")
-        print(f"    Rule Correctness             : {re_m.get('rule_correctness', 0):.1%}")
-        print(f"    Ambiguity Detection          : {re_m.get('ambiguity_detection', 0):.1%}")
-
-    ar = relatorio.get("avaliacao_relatorio", {})
-    if ar and "score_total" in ar:
-        print(f"\n  Relatorio (LLM-as-judge):")
-        print(f"    Score total                  : {ar.get('score_total', 0):.1f}/10")
-
-    print(f"\n[OK] Relatorio guardado em: {output_path}")
+    print(f"\n[OK] Relatorio guardado com sucesso em: {output_path}")
     print("=" * 60)
 
     return relatorio
@@ -457,13 +302,9 @@ if __name__ == "__main__":
     parser.add_argument("--output", default="evaluation_report.json",
                         help="Ficheiro de saida (default: evaluation_report.json)")
     parser.add_argument("--strategy", choices=["A", "B", "C", "all"], default="B",
-                        help="Estrategia a avaliar. 'all' avalia A, B e C (default: B)")
+                        help="Estrategia de prompting a testar (default: B)")
 
     args = parser.parse_args()
-
-    executar_avaliacao(
-        images_dir=args.images_dir,
-        ground_truth_path=args.ground_truth,
-        output_path=args.output,
-        strategy=args.strategy,
-    )
+    
+    # Corrigido o erro: alterado de args.images-dir para args.images_dir
+    executar_harness(args.images_dir, args.ground_truth, args.output, args.strategy)

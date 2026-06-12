@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-06-12T17:26:13.013280+00:00",
+  "configuracao": {
+    "images_dir": "data/images/ambigua",
+    "ground_truth_file": null,
+    "strategy_evaluated": "B",
+    "model_judge": "openai/gpt-4o-mini"
+  },
+  "metricas_motor_regras": {
+    "rule_parse_rate": 0.0,
+    "rule_correctness": 0.0,
+    "ambiguity_detection": 0.0
+  },
+  "metricas_visao": {
+    "total_images_evaluated": 10,
+    "true_detection_rate_idr": "N/A",
+    "false_positive_rate_fpr": "N/A"
+  },
+  "avaliacao_relatorio": {
+    "score": 0.0,
+    "erro": "Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 16384 tokens, but can only afford 10830. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata': {'provider_name': None, 'previous_errors': [{'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 16384 tokens, but can only afford 10830. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3F2RVQuuAxQ73q0kEfpGKdGF7lO'}"
+  },
+  "tempo_execucao_segundos": 129.03
+}

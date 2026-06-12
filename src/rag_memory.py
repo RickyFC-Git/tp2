@@ -5,12 +5,13 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
-
-import google.generativeai as genai
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+MODEL_NAME = "openai/gpt-4o-mini"
 
 VECTORSTORE_DIR = "./vectorstore"
 CHUNK_STRATEGY = os.getenv("CHUNK_STRATEGY", "hybrid")
@@ -60,14 +61,49 @@ Obrigatório:
 
 Resposta:"""
 
+def chamar_openrouter(prompt: str, temperature: float = 0.2, max_retries: int = 3) -> str:
+    if not OPENROUTER_API_KEY:
+        raise ValueError("A variável de ambiente OPENROUTER_API_KEY não está configurada no ficheiro .env")
+
+    headers = {
+        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "model": MODEL_NAME,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": temperature
+    }
+
+    url = "https://openrouter.ai/api/v1/chat/completions"
+
+    for attempt in range(max_retries):
+        try:
+            response = requests.post(
+                url,
+                headers=headers,
+                json=payload,
+                timeout=30
+            )
+            if response.status_code == 200:
+                res_json = response.json()
+                return res_json["choices"][0]["message"]["content"].strip()
+            elif response.status_code == 429 and attempt < max_retries - 1:
+                wait = (2 ** attempt) * 5
+                log.warning(f"Rate limit detetado (429). A aguardar {wait}s...")
+                time.sleep(wait)
+            else:
+                response.raise_for_status()
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise RuntimeError(f"Falha ao comunicar com o OpenRouter após {max_retries} tentativas: {e}")
+            time.sleep(2)
+    return ""
+
 def inicializar_vectorstore(strategy: str = CHUNK_STRATEGY):
-    """
-    Inicializa o ChromaDB e o modelo de embeddings.
-    Devolve (client, collection).
-    """
     try:
         import chromadb
-        from chromadb.config import Settings
     except ImportError:
         raise ImportError("Instala: pip install chromadb")
 
@@ -77,7 +113,6 @@ def inicializar_vectorstore(strategy: str = CHUNK_STRATEGY):
         raise ImportError("Instala: pip install sentence-transformers")
 
     client = chromadb.PersistentClient(path=VECTORSTORE_DIR)
-
     collection_name = f"inspecoes_{strategy}"
 
     collection = client.get_or_create_collection(
@@ -92,10 +127,7 @@ def inicializar_vectorstore(strategy: str = CHUNK_STRATEGY):
     log.info(f"ChromaDB inicializado: {collection_name} ({collection.count()} documentos)")
     return client, collection, embedding_model
 
-
 def gerar_summary(inspecao: dict) -> str:
-    """Gera um summary rico da inspeção via Gemini para indexação."""
-
     dados_simplificados = {
         "inspection_id": inspecao.get("inspection_id"),
         "timestamp": inspecao.get("timestamp"),
@@ -111,19 +143,12 @@ def gerar_summary(inspecao: dict) -> str:
     )
 
     try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(
-            prompt,
-            generation_config={"temperature": 0.2},
-        )
-        return response.text.strip()
+        return chamar_openrouter(prompt, temperature=0.2)
     except Exception as e:
-        log.warning(f"Erro ao gerar summary via Gemini: {e}. A usar fallback.")
+        log.warning(f"Erro ao gerar summary via OpenRouter: {e}. A usar fallback.")
         return _summary_fallback(inspecao)
 
-
 def _summary_fallback(inspecao: dict) -> str:
-    """Summary básico sem API, usado quando Gemini não está disponível."""
     ts = inspecao.get("timestamp", "")
     try:
         dt = datetime.fromisoformat(ts)
@@ -135,29 +160,25 @@ def _summary_fallback(inspecao: dict) -> str:
     issues_str = ""
     if issues:
         descricoes = [f"{i.get('type')} em {i.get('location', '?')} ({i.get('severity')})"
-                     for i in issues]
+                      for i in issues]
         issues_str = ". Problemas: " + "; ".join(descricoes)
 
     fill = inspecao.get("shelf_fill_rate", 0)
+    if fill <= 1.0:
+        fill_str = f"{fill:.0%}"
+    else:
+        fill_str = f"{fill:.0f}%"
+
     produtos = ", ".join(inspecao.get("products_detected", []))
 
     return (
         f"Inspeção {inspecao.get('inspection_id')} da zona {inspecao.get('zone_id')} "
-        f"em {data_str}. Fill rate de {fill:.0%}. "
+        f"em {data_str}. Fill rate de {fill_str}. "
         f"Estado: {inspecao.get('overall_status')}{issues_str}. "
         f"Produtos: {produtos or 'não identificados'}."
     )
 
-
 def chunks_hibrido(inspecao: dict, summary: str) -> list[dict]:
-    """
-    Estratégia HÍBRIDA (padrão recomendada):
-    - 1 chunk por inspeção com o summary como texto
-    - Metadata estruturada para filtragem pre-retrieval
-    
-    Vantagem: equilíbrio entre granularidade e tamanho do índice.
-    Desvantagem: issues individuais podem perder-se no vetor médio.
-    """
     ts = inspecao.get("timestamp", "")
     try:
         dt = datetime.fromisoformat(ts)
@@ -184,16 +205,7 @@ def chunks_hibrido(inspecao: dict, summary: str) -> list[dict]:
         }
     }]
 
-
 def chunks_por_issue(inspecao: dict, summary: str) -> list[dict]:
-    """
-    Estratégia POR ISSUE:
-    - 1 chunk por issue detetado + 1 chunk de sumário geral
-    - Metadata da inspeção pai em cada chunk
-    
-    Vantagem: recuperação granular por tipo de problema.
-    Desvantagem: índice maior; inspeções sem issues têm só 1 chunk.
-    """
     inspection_id = inspecao.get("inspection_id", "")
     ts = inspecao.get("timestamp", "")
     zone_id = inspecao.get("zone_id", "")
@@ -226,12 +238,15 @@ def chunks_por_issue(inspecao: dict, summary: str) -> list[dict]:
     })
 
     for i, issue in enumerate(inspecao.get("issues", [])):
+        fill = inspecao.get("shelf_fill_rate", 0)
+        fill_str = f"{fill:.0%}" if fill <= 1.0 else f"{fill:.0f}%"
+
         texto_issue = (
             f"Issue na inspeção {inspection_id} da zona {zone_id}: "
             f"{issue.get('type')} em {issue.get('location', '?')}, "
             f"severidade {issue.get('severity')}. "
             f"{issue.get('description', '')}. "
-            f"Fill rate geral: {inspecao.get('shelf_fill_rate', 0):.0%}. "
+            f"Fill rate geral: {fill_str}. "
             f"Data: {ts[:10] if ts else '?'}."
         )
         chunks.append({
@@ -248,18 +263,12 @@ def chunks_por_issue(inspecao: dict, summary: str) -> list[dict]:
 
     return chunks
 
-
 def indexar_inspecao(
     inspecao: dict,
     strategy: str = CHUNK_STRATEGY,
     gerar_summary_api: bool = True,
 ) -> int:
-    """
-    Indexa uma inspeção na vector store.
-    Devolve o número de chunks adicionados.
-    """
     _, collection, embedding_model = inicializar_vectorstore(strategy)
-
     inspection_id = inspecao.get("inspection_id", "")
 
     existentes = collection.get(where={"inspection_id": inspection_id})
@@ -293,9 +302,8 @@ def indexar_inspecao(
         metadatas=[c["metadata"] for c in chunks],
     )
 
-    log.info(f"✓ Inspeção {inspection_id} indexada com {len(chunks)} chunks (strategy={strategy})")
+    log.info(f"Inspeção {inspection_id} indexada com {len(chunks)} chunks (strategy={strategy})")
     return len(chunks)
-
 
 def indexar_pasta(pasta: str, strategy: str = CHUNK_STRATEGY) -> dict:
     pasta_path = Path(pasta)
@@ -328,17 +336,12 @@ def indexar_pasta(pasta: str, strategy: str = CHUNK_STRATEGY) -> dict:
     log.info(f"Indexação concluída: {indexados} inspeções, {total_chunks} chunks, {erros} erros")
     return {"total": len(ficheiros), "indexados": indexados, "chunks": total_chunks, "erros": erros}
 
-
 def recuperar_contexto(
     query: str,
     strategy: str = CHUNK_STRATEGY,
     top_k: int = TOP_K,
     filtros: Optional[dict] = None,
 ) -> list[dict]:
-    """
-    Recupera os k chunks mais relevantes para uma query.
-    Devolve lista de dicts com texto, metadata e distância.
-    """
     _, collection, embedding_model = inicializar_vectorstore(strategy)
 
     if collection.count() == 0:
@@ -369,16 +372,11 @@ def recuperar_contexto(
 
     return chunks
 
-
 def responder_query(
     query: str,
     strategy: str = CHUNK_STRATEGY,
     top_k: int = TOP_K,
 ) -> dict:
-    """
-    Responde a uma query em linguagem natural usando RAG.
-    Devolve dict com resposta, chunks usados e metadados.
-    """
     log.info(f"Query: {query}")
 
     chunks = recuperar_contexto(query, strategy=strategy, top_k=top_k)
@@ -403,16 +401,10 @@ def responder_query(
         )
 
     contexto = "\n\n".join(contexto_partes)
-
     prompt = PROMPT_RESPOSTA_RAG.format(query=query, contexto=contexto)
 
     try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(
-            prompt,
-            generation_config={"temperature": 0.3},
-        )
-        resposta = response.text.strip()
+        resposta = chamar_openrouter(prompt, temperature=0.3)
     except Exception as e:
         log.error(f"Erro ao gerar resposta RAG: {e}")
         resposta = (
@@ -436,21 +428,11 @@ def responder_query(
         "top_k": top_k,
     }
 
-
 def avaliar_recall_at_k(
     queries_ground_truth: list[dict],
     strategy: str = CHUNK_STRATEGY,
     k: int = 3,
 ) -> dict:
-    """
-    Calcula Recall@K para comparação de estratégias de chunking.
-    
-    queries_ground_truth: lista de dicts com:
-      - "query": str
-      - "inspection_ids_relevantes": list[str]  ← ground truth
-    
-    Devolve métricas de avaliação.
-    """
     acertos = 0
     total = len(queries_ground_truth)
 
@@ -483,9 +465,7 @@ def avaliar_recall_at_k(
         "detalhes": detalhes,
     }
 
-
 def estatisticas(strategy: str = CHUNK_STRATEGY) -> dict:
-    """Mostra estatísticas da vector store."""
     _, collection, _ = inicializar_vectorstore(strategy)
 
     count = collection.count()
@@ -510,28 +490,27 @@ def estatisticas(strategy: str = CHUNK_STRATEGY) -> dict:
         "chunks_por_status": statuses,
     }
 
-
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="RAG Memory — Memória de inspeções")
+    parser = argparse.ArgumentParser(description="RAG Memory — Memória de inspeções histórica")
     parser.add_argument("--strategy", choices=["hybrid", "by_issue"], default=CHUNK_STRATEGY,
-                        help="Estratégia de chunking")
+                        help="Estratégia de chunking a utilizar")
     parser.add_argument("--top-k", type=int, default=TOP_K)
     sub = parser.add_subparsers(dest="cmd")
 
-    p_idx = sub.add_parser("index", help="Indexa um ficheiro de inspeção")
+    p_idx = sub.add_parser("index", help="Indexa um ficheiro individual de inspeção")
     p_idx.add_argument("ficheiro", help="Caminho para o JSON de inspeção")
-    p_idx.add_argument("--no-api", action="store_true", help="Usa summary fallback sem API")
+    p_idx.add_argument("--no-api", action="store_true", help="Usa o sumário fallback local")
 
-    p_idxa = sub.add_parser("index-all", help="Indexa todos os JSONs de uma pasta")
-    p_idxa.add_argument("pasta", help="Pasta com ficheiros de inspeção")
+    p_idxa = sub.add_parser("index-all", help="Indexa de forma massiva uma diretoria completa")
+    p_idxa.add_argument("pasta", help="Pasta com os ficheiros de inspeção")
     p_idxa.add_argument("--no-api", action="store_true")
 
-    p_q = sub.add_parser("query", help="Faz uma query ao histórico")
-    p_q.add_argument("texto", help="Query em linguagem natural")
+    p_q = sub.add_parser("query", help="Efetua uma pesquisa contextual assistida por RAG")
+    p_q.add_argument("texto", help="Query do gestor em linguagem natural")
 
-    sub.add_parser("stats", help="Mostra estatísticas da vector store")
+    sub.add_parser("stats", help="Mostra estatísticas detalhadas do ChromaDB")
 
     args = parser.parse_args()
     strategy = args.strategy
@@ -540,7 +519,7 @@ if __name__ == "__main__":
         with open(args.ficheiro, encoding="utf-8") as f:
             inspecao = json.load(f)
         n = indexar_inspecao(inspecao, strategy=strategy, gerar_summary_api=not args.no_api)
-        print(f"✓ {n} chunks adicionados")
+        print(f"Sucesso: {n} chunks adicionados.")
 
     elif args.cmd == "index-all":
         resultado = indexar_pasta(args.pasta, strategy=strategy)

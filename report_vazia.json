@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-06-12T17:17:37.745372+00:00",
+  "configuracao": {
+    "images_dir": "data/images/vazia",
+    "ground_truth_file": null,
+    "strategy_evaluated": "B",
+    "model_judge": "openai/gpt-4o-mini"
+  },
+  "metricas_motor_regras": {
+    "rule_parse_rate": 0.0,
+    "rule_correctness": 0.0,
+    "ambiguity_detection": 0.0
+  },
+  "metricas_visao": {
+    "total_images_evaluated": 10,
+    "true_detection_rate_idr": "N/A",
+    "false_positive_rate_fpr": "N/A"
+  },
+  "avaliacao_relatorio": {
+    "score_total": 7.5,
+    "clareza": 8.0,
+    "capacidade_sumario": 7.0,
+    "reasoning": "O relatório apresenta uma estrutura clara e organizada, facilitando a leitura e a compreensão das informações. O sumário executivo fornece uma visão geral concisa dos resultados das inspeções, destacando os principais problemas e recomendações. No entanto, a capacidade do sumário poderia ser melhorada com uma análise mais profunda das implicações dos problemas identificados, como o impacto no desempenho da loja e na experiência do cliente. Além disso, a repetição de informações nas seções de inspeção e contexto histórico pode ser vista como redundante, o que diminui a concisão do relatório. A inclusão de dados de trajetória, embora mencionada, não foi implementada, o que limita a utilidade prática do relatório, pois a correlação entre problemas de abastecimento e padrões de afluência poderia fornecer insights valiosos. Em geral, o relatório é útil, mas poderia ser aprimorado com uma análise mais crítica e menos repetitiva das informações apresentadas."
+  },
+  "tempo_execucao_segundos": 143.46
+}

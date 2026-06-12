@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-06-12T17:19:03.633465+00:00",
+  "configuracao": {
+    "images_dir": "data/images/planograma",
+    "ground_truth_file": null,
+    "strategy_evaluated": "B",
+    "model_judge": "openai/gpt-4o-mini"
+  },
+  "metricas_motor_regras": {
+    "rule_parse_rate": 0.0,
+    "rule_correctness": 0.0,
+    "ambiguity_detection": 0.0
+  },
+  "metricas_visao": {
+    "total_images_evaluated": 10,
+    "true_detection_rate_idr": "N/A",
+    "false_positive_rate_fpr": "N/A"
+  },
+  "avaliacao_relatorio": {
+    "score_total": 8.5,
+    "clareza": 9.0,
+    "capacidade_sumario": 8.0,
+    "reasoning": "O relatório apresenta uma estrutura clara e organizada, facilitando a leitura e a compreensão das informações. O sumário executivo é conciso e fornece uma visão geral eficaz dos resultados das inspeções, destacando a ausência de problemas críticos e o excelente desempenho em termos de fill rate. No entanto, a seção de 'Problemas por Zona' está vazia, o que pode ser uma limitação, pois não fornece informações adicionais sobre áreas que poderiam ser melhoradas, mesmo que não tenham sido identificados problemas críticos nesta inspeção. As recomendações são práticas e específicas, mas poderiam ser mais detalhadas em relação ao impacto esperado das ações sugeridas. A integração com dados de trajetória não implementada é uma fraqueza, pois limita a análise contextual dos resultados. No geral, o relatório é útil e profissional, mas poderia ser aprimorado com informações adicionais e uma análise mais profunda."
+  },
+  "tempo_execucao_segundos": 77.03
+}

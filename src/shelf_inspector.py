@@ -7,13 +7,24 @@ import logging
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
-
-import google.generativeai as genai
+from openai import OpenAI
 from PIL import Image
 from dotenv import load_dotenv
 
 load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+if not OPENROUTER_API_KEY:
+    raise ValueError("A variável de ambiente OPENROUTER_API_KEY não foi encontrada.")
+
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=OPENROUTER_API_KEY,
+    default_headers={
+        "HTTP-Referer": "https://github.com/teu-utilizador/tp2-liacd",
+        "X-Title": "Retail Vision Intelligence System",
+    }
+)
 
 CACHE_DIR = Path("./cache")
 CACHE_DIR.mkdir(exist_ok=True)
@@ -21,9 +32,8 @@ CACHE_DIR.mkdir(exist_ok=True)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
-class RateLimiter:
-    """Garante máximo de 15 req/min com backoff exponencial em erro 429."""
 
+class RateLimiter:
     def __init__(self, max_per_minute: int = 14):
         self.max_per_minute = max_per_minute
         self.timestamps: list[float] = []
@@ -31,11 +41,14 @@ class RateLimiter:
     def wait_if_needed(self):
         now = time.time()
         self.timestamps = [t for t in self.timestamps if now - t < 60]
+
         if len(self.timestamps) >= self.max_per_minute:
             wait = 60 - (now - self.timestamps[0]) + 1
             log.info(f"Rate limit: aguardando {wait:.1f}s...")
             time.sleep(wait)
+
         self.timestamps.append(time.time())
+
 
 rate_limiter = RateLimiter()
 
@@ -44,20 +57,23 @@ def get_cache_key(image_path: str, strategy: str) -> str:
         md5 = hashlib.md5(f.read()).hexdigest()
     return f"{md5}_{strategy}"
 
+
 def load_from_cache(cache_key: str) -> Optional[dict]:
     cache_file = CACHE_DIR / f"{cache_key}.json"
     if cache_file.exists():
         log.info(f"Cache hit: {cache_key}")
-        with open(cache_file) as f:
-            return json.load(f)
+        return json.loads(cache_file.read_text(encoding="utf-8"))
     return None
+
 
 def save_to_cache(cache_key: str, result: dict):
     cache_file = CACHE_DIR / f"{cache_key}.json"
-    with open(cache_file, "w", encoding="utf-8") as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
+    cache_file.write_text(
+        json.dumps(result, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
-PROMPT_A_ZERO_SHOT = """Analisa esta imagem de uma prateleira de supermercado e devolve APENAS um JSON válido com o seguinte schema, sem texto adicional antes ou depois:
+PROMPT_A_ZERO_SHOT = """Analisa esta imagem de uma prateleira de supermercado e devolve um JSON válido com o seguinte schema obrigatório:
 
 {
   "inspection_id": "INS_<TIMESTAMP>_<ID>",
@@ -69,19 +85,21 @@ PROMPT_A_ZERO_SHOT = """Analisa esta imagem de uma prateleira de supermercado e 
     {
       "issue_id": "ISS_001",
       "type": "empty_shelf|wrong_product|damaged|misaligned|label_missing|other",
-      "location": "descrição da localização na prateleira",
+      "location": "TEXTO EM PORTUGUÊS (ex: 'prateleira do meio, lado esquerdo')",
       "severity": "low|medium|high",
-      "description": "descrição do problema",
+      "description": "TEXTO EM PORTUGUÊS (ex: 'várias falhas de stock visíveis')",
       "confidence": 0.0,
       "affected_area_pct": 0.0
     }
   ],
   "shelf_fill_rate": 0.0,
-  "products_detected": ["categorias de produto visíveis"],
-  "model_reasoning": "raciocínio explícito antes da classificação"
+  "products_detected": ["TEXTO EM PORTUGUÊS (ex: 'medicamentos', 'higiene')"],
+  "model_reasoning": "TEXTO EM PORTUGUÊS (raciocínio detalhado antes da classificação)"
 }
 
-Preenche todos os campos. Se não houver problemas, "issues" deve ser lista vazia e "overall_status" deve ser "ok"."""
+REGRAS DE IDIOMA CRÍTICAS:
+1. As chaves do JSON e os valores de 'overall_status', 'type' e 'severity' TÊM de manter o formato em inglês do schema acima.
+2. Os campos de texto livre ('location', 'description', 'products_detected' e 'model_reasoning') têm de ser OBRIGATORIAMENTE preenchidos em Português de Portugal. Não uses nenhuma palavra em inglês nestes campos."""
 
 
 PROMPT_B_COT = """Vais analisar uma imagem de prateleira de supermercado passo a passo.
@@ -99,7 +117,7 @@ PASSO 4 — CLASSIFICAÇÃO:
 Com base nos passos anteriores, classifica o estado geral: ok / warning / critical.
 
 PASSO 5 — OUTPUT JSON:
-Devolve APENAS o JSON abaixo, sem texto adicional, com o teu raciocínio dos passos anteriores no campo "model_reasoning":
+Devolve o JSON estruturado abaixo. Nota que o campo 'model_reasoning' deve conter o resumo em português do teu raciocínio dos passos anteriores:
 
 {
   "inspection_id": "INS_<TIMESTAMP>_<ID>",
@@ -111,32 +129,34 @@ Devolve APENAS o JSON abaixo, sem texto adicional, com o teu raciocínio dos pas
     {
       "issue_id": "ISS_001",
       "type": "empty_shelf|wrong_product|damaged|misaligned|label_missing|other",
-      "location": "descrição da localização na prateleira",
+      "location": "TEXTO EM PORTUGUÊS (ex: 'secção superior, lado direito')",
       "severity": "low|medium|high",
-      "description": "descrição do problema",
+      "description": "TEXTO EM PORTUGUÊS (ex: 'produto desalinhado e a tapar o preço')",
       "confidence": 0.0,
       "affected_area_pct": 0.0
     }
   ],
   "shelf_fill_rate": 0.0,
-  "products_detected": ["categorias de produto visíveis"],
-  "model_reasoning": "resumo do raciocínio dos 4 passos acima"
-}"""
+  "products_detected": ["TEXTO EM PORTUGUÊS"],
+  "model_reasoning": "TEXTO EM PORTUGUÊS (resumo dos passos 1 a 4)"
+}
+
+REGRAS DE IDIOMA CRÍTICAS:
+1. Mantém as chaves e os enums ('overall_status', 'type', 'severity') em inglês exatamente como solicitado no schema.
+2. Escreve obrigatoriamente todo o conteúdo dos campos 'location', 'description', 'products_detected' e 'model_reasoning' em Português de Portugal."""
 
 
 PROMPT_C_FEW_SHOT = """Vais analisar uma imagem de prateleira de supermercado. Aqui estão dois exemplos de análises corretas anteriores para guiar o teu raciocínio:
 
-EXEMPLO 1 (prateleira normal):
+EXEMPLO 1:
 Imagem: prateleira de bebidas com garrafas alinhadas, todas as posições preenchidas.
-Análise: Fill rate ~95%. Produtos bem posicionados. Sem anomalias visíveis.
-JSON resultado: {{"overall_status": "ok", "issues": [], "shelf_fill_rate": 0.95, "model_reasoning": "Prateleira com bebidas em bom estado. Todas as posições preenchidas. Produtos alinhados e com etiquetas visíveis."}}
+JSON resultado: {{"overall_status": "ok", "issues": [], "shelf_fill_rate": 95.0, "products_detected": ["bebidas", "sumos"], "model_reasoning": "Prateleira com bebidas em bom estado. Todas as posições preenchidas. Produtos alinhados e com etiquetas visíveis."}}
 
-EXEMPLO 2 (prateleira com problemas):
+EXEMPLO 2:
 Imagem: prateleira de snacks com 3 posições vazias no lado esquerdo e um produto tombado ao centro.
-Análise: Fill rate ~65%. Dois problemas identificados: lacuna no lado esquerdo (empty_shelf, severity high) e produto tombado ao centro (misaligned, severity medium).
-JSON resultado: {{"overall_status": "warning", "issues": [{{"type": "empty_shelf", "location": "prateleira central, lado esquerdo", "severity": "high", "description": "3 posições consecutivas sem produto", "confidence": 0.92, "affected_area_pct": 0.25}}, {{"type": "misaligned", "location": "prateleira central, centro", "severity": "medium", "description": "produto tombado bloqueando etiqueta", "confidence": 0.85, "affected_area_pct": 0.05}}], "shelf_fill_rate": 0.65, "model_reasoning": "Lado esquerdo com lacuna significativa. Produto tombado ao centro. Estado geral warning."}}
+JSON resultado: {{"overall_status": "warning", "issues": [{{"type": "empty_shelf", "location": "prateleira central, lado esquerdo", "severity": "high", "description": "3 posições consecutivas sem produto", "confidence": 0.92, "affected_area_pct": 25.0}}, {{"type": "misaligned", "location": "prateleira central, centro", "severity": "medium", "description": "produto tombado bloqueando etiqueta", "confidence": 0.85, "affected_area_pct": 5.0}}], "shelf_fill_rate": 65.0, "products_detected": ["snacks", "batatas fritas"], "model_reasoning": "Lado esquerdo com lacuna significativa. Produto tombado ao centro. Estado geral warning."}}
 
-Agora analisa a imagem fornecida e devolve APENAS o JSON completo, sem texto adicional:
+Agora analisa a imagem fornecida e devolve o JSON completo com o seguinte formato:
 
 {
   "inspection_id": "INS_<TIMESTAMP>_<ID>",
@@ -158,7 +178,11 @@ Agora analisa a imagem fornecida e devolve APENAS o JSON completo, sem texto adi
   "shelf_fill_rate": 0.0,
   "products_detected": ["categorias de produto visíveis"],
   "model_reasoning": "raciocínio explícito antes da classificação"
-}"""
+}
+
+REGRAS DE IDIOMA CRÍTICAS:
+1. Mantém as chaves e os enums ('overall_status', 'type', 'severity') em inglês exatamente como solicitado no schema.
+2. Escreve obrigatoriamente todo o conteúdo dos campos 'location', 'description', 'products_detected' e 'model_reasoning' em Português de Portugal."""
 
 PROMPTS = {
     "A": PROMPT_A_ZERO_SHOT,
@@ -166,38 +190,53 @@ PROMPTS = {
     "C": PROMPT_C_FEW_SHOT,
 }
 
-def load_image_base64(image_path: str) -> tuple[str, str]:
-    """Carrega imagem e devolve (base64_data, mime_type)."""
+def load_image_base64(image_path: str, max_size: int = 1024) -> tuple[str, str]:
     img = Image.open(image_path)
+    
     if img.mode != "RGB":
         img = img.convert("RGB")
+
+    img.thumbnail((max_size, max_size))
+
+    from io import BytesIO
+    buffer = BytesIO()
+    img.save(buffer, format="JPEG", quality=85)
+
+    b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    return b64, "image/jpeg"
+
     from io import BytesIO
     buffer = BytesIO()
     img.save(buffer, format="JPEG")
     b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
     return b64, "image/jpeg"
 
+def parse_json_response(raw: str) -> dict:
+    """Limpa blocos de código Markdown de forma segura se o modelo os incluir."""
+    raw = raw.strip()
+    if raw.startswith("```"):
+        lines = raw.splitlines()
+        if lines[0].startswith("```"):
+            lines = lines[1:]
+        if lines and lines[-1].startswith("```"):
+            lines = lines[:-1]
+        raw = "\n".join(lines).strip()
+    return json.loads(raw)
+
 def generate_inspection_id(index: int = 0) -> str:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"INS_{ts}_{index:03d}"
 
-def parse_json_response(raw: str) -> dict:
-    """Extrai JSON da resposta do modelo, removendo markdown se necessário."""
-    raw = raw.strip()
-    if raw.startswith("```"):
-        lines = raw.split("\n")
-        raw = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
-    return json.loads(raw)
-
 def fill_metadata(result: dict, image_path: str, zone_id: str, index: int) -> dict:
-    """Preenche campos de metadados que o modelo pode ter deixado como placeholder."""
-    now = datetime.now(timezone.utc).isoformat()
-    result.setdefault("inspection_id", generate_inspection_id(index))
-    result["timestamp"] = now
+    result["inspection_id"] = generate_inspection_id(index)
+    
+    result["timestamp"] = datetime.now(timezone.utc).isoformat()
     result["image_path"] = str(image_path)
     result["zone_id"] = zone_id
+
     for i, issue in enumerate(result.get("issues", []), start=1):
         issue.setdefault("issue_id", f"ISS_{i:03d}")
+
     return result
 
 def inspect_shelf(
@@ -207,24 +246,12 @@ def inspect_shelf(
     index: int = 0,
     save_result: bool = True,
 ) -> dict:
-    """
-    Analisa uma imagem de prateleira com o Gemini Flash.
 
-    Args:
-        image_path: Caminho para a imagem.
-        strategy: "A" (zero-shot), "B" (chain-of-thought), "C" (few-shot).
-        zone_id: Identificador da zona da loja (e.g. "Z_S3").
-        index: Índice para o inspection_id.
-        save_result: Se True, guarda o resultado em data/inspections/.
-
-    Returns:
-        Dict com o resultado da inspeção no schema definido.
-    """
     if strategy not in PROMPTS:
-        raise ValueError(f"Estratégia inválida: {strategy}. Usa 'A', 'B' ou 'C'.")
+        raise ValueError("Estratégia inválida. Usa A, B ou C.")
 
     if not Path(image_path).exists():
-        raise FileNotFoundError(f"Imagem não encontrada: {image_path}")
+        raise FileNotFoundError(image_path)
 
     cache_key = get_cache_key(image_path, strategy)
     cached = load_from_cache(cache_key)
@@ -232,58 +259,61 @@ def inspect_shelf(
         return cached
 
     prompt = PROMPTS[strategy]
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    
+    model = "openai/gpt-4o-mini"
+
     img_b64, mime_type = load_image_base64(image_path)
 
-    max_retries = 5
-    for attempt in range(max_retries):
+    for attempt in range(5):
         try:
             rate_limiter.wait_if_needed()
-            log.info(f"[{strategy}] Inspecionando {Path(image_path).name} (tentativa {attempt+1})")
 
-            response = model.generate_content(
-                [
-                    {"mime_type": mime_type, "data": img_b64},
-                    prompt,
+            log.info(f"[{strategy}] {Path(image_path).name} tentativa {attempt+1}")
+
+            response = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt},
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:{mime_type};base64,{img_b64}"
+                                },
+                            },
+                        ],
+                    }
                 ],
-                generation_config={"temperature": 0},
+                temperature=0,
+                response_format={"type": "json_object"},
+                timeout=60.0
             )
-            raw_text = response.text
+
+            raw_text = response.choices[0].message.content
             break
 
         except Exception as e:
-            error_str = str(e)
-            if "429" in error_str or "quota" in error_str.lower():
-                if attempt < max_retries - 1:
-                    wait = (2 ** attempt) * 10  
-                    log.warning(f"Quota esgotada (429). Aguardando {wait}s...")
-                    time.sleep(wait)
-                else:
-                    log.error("Quota diária esgotada. Sistema em modo cache-only.")
-                    raise RuntimeError(
-                        "QUOTA_EXCEEDED: Quota diária da API esgotada. "
-                        "O sistema continua a funcionar para imagens em cache. "
-                        "Tenta novamente amanhã."
-                    )
-            else:
-                log.error(f"Erro na API: {e}")
-                raise
+            log.error(f"Erro API OpenRouter: {e}")
+            time.sleep(2 ** attempt)
+
+    else:
+        raise RuntimeError("Falha após várias tentativas no OpenRouter")
 
     try:
         result = parse_json_response(raw_text)
-    except json.JSONDecodeError as e:
-        log.error(f"Resposta não é JSON válido: {raw_text[:200]}...")
+    except Exception as e:
         result = {
             "inspection_id": generate_inspection_id(index),
             "timestamp": datetime.now(timezone.utc).isoformat(),
-            "image_path": str(image_path),
+            "image_path": image_path,
             "zone_id": zone_id,
             "overall_status": "critical",
             "issues": [],
             "shelf_fill_rate": 0.0,
             "products_detected": [],
-            "model_reasoning": f"PARSE_ERROR: {str(e)} | Raw: {raw_text[:300]}",
-            "_parse_error": True,
+            "model_reasoning": f"PARSE_ERROR: {str(e)}. Raw text: {raw_text[:200]}",
         }
 
     result = fill_metadata(result, image_path, zone_id, index)
@@ -291,12 +321,13 @@ def inspect_shelf(
     save_to_cache(cache_key, result)
 
     if save_result:
-        inspections_dir = Path("./data/inspections")
-        inspections_dir.mkdir(parents=True, exist_ok=True)
-        out_file = inspections_dir / f"{result['inspection_id']}_strategy{strategy}.json"
-        with open(out_file, "w", encoding="utf-8") as f:
-            json.dump(result, f, ensure_ascii=False, indent=2)
-        log.info(f"Resultado guardado em {out_file}")
+        out_dir = Path("./data/inspections")
+        out_dir.mkdir(parents=True, exist_ok=True)
+
+        out_file = out_dir / f"{result['inspection_id']}_strategy{strategy}.json"
+        out_file.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+
+        log.info(f"Guardado: {out_file}")
 
     return result
 
@@ -307,12 +338,6 @@ def inspect_batch(
     zone_id: str = "Z_UNKNOWN",
     extensions: tuple = (".jpg", ".jpeg", ".png"),
 ) -> list[dict]:
-    """
-    Inspecciona todas as imagens de uma pasta.
-
-    Returns:
-        Lista de resultados de inspeção.
-    """
     images_dir = Path(images_dir)
     image_files = [
         f for f in images_dir.iterdir()

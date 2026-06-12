@@ -91,9 +91,14 @@ def imprimir_resultado_inspecao(resultado: dict):
     status = resultado.get("overall_status", "?")
     status_label = {"ok": "[OK]", "warning": "[WARNING]", "critical": "[CRITICAL]"}.get(status, "[?]")
 
+    fill = resultado.get("shelf_fill_rate", 0)
+    # Correção para evitar o bug de amostragem (ex: 80% virar 8000%)
+    if fill > 1.0:
+        fill = fill / 100.0
+
     print(f"\n{status_label} {resultado.get('inspection_id')}")
     print(f"   Zona: {resultado.get('zone_id')} | "
-          f"Fill rate: {resultado.get('shelf_fill_rate', 0):.0%} | "
+          f"Fill rate: {fill:.0%} | "
           f"Timestamp: {resultado.get('timestamp', '')[:16]}")
 
     issues = resultado.get("issues", [])
@@ -109,7 +114,6 @@ def imprimir_resultado_inspecao(resultado: dict):
     produtos = resultado.get("products_detected", [])
     if produtos:
         print(f"   Produtos: {', '.join(produtos[:5])}")
-
 
 
 def handle_inspect(args: list, sessao: Sessao, comp: dict) -> bool:
@@ -365,7 +369,7 @@ def handle_report(args: list, sessao: Sessao, comp: dict) -> bool:
                     titulo=f"Relatorio de Sessao -- {datetime.now().strftime('%Y-%m-%d %H:%M')}",
                 )
             else:
-                imprimir_info("A carregar inspecoes das ultimas 24h...")
+                imprimir_info("A carregar inspecoes das ultimas 24h de disco...")
                 inspecoes = comp["report"].carregar_inspecoes_sessao("data/inspections/", horas=24)
                 if not inspecoes:
                     imprimir_aviso("Nenhuma inspecao nas ultimas 24h.")
@@ -430,7 +434,7 @@ def handle_help():
     compare <Z_S1> <Z_S2> --period <dias>
 
   RELATORIOS:
-    report --session [today]
+    report --session
     report --zone <Z_S1> --period <dias>
 
   SISTEMA:
@@ -443,7 +447,7 @@ def handle_help():
     inspect Z_S1 --image data/images/normal/normal_0001.jpg
     add rule "Avisa-me quando a prateleira inferior estiver mais de 40% vazia"
     history "quando foi a ultima vez que Z_S1 teve problemas?"
-    report --session today
+    report --session
 {SEPARADOR}
 """)
 
@@ -500,16 +504,19 @@ def processar_comando(linha: str, sessao: Sessao, comp: dict) -> bool:
 
 
 def main():
-    print(""" Retail Vision Intelligence System -- TP2 LIACD
-              Escreve 'help' para ver os comandos disponiveis""")
+    print("""
+============================================================
+ Retail Vision Intelligence System -- TP2 LIACD (CLI)
+ Escreve 'help' para ver os comandos disponiveis.
+============================================================\n""")
 
-    if not os.getenv("GEMINI_API_KEY"):
-        print("[AVISO] GEMINI_API_KEY nao definida no .env")
-        print("        Algumas funcionalidades nao estarao disponiveis.\n")
+    if not os.getenv("OPENROUTER_API_KEY"):
+        print("[AVISO] OPENROUTER_API_KEY nao definida no ficheiro .env")
+        print("        O gerador de relatorios e RAG nao vao conseguir aceder ao GPT-4o Mini.\n")
 
-    print("A carregar componentes...")
+    print("A carregar componentes do sistema...")
     comp = importar_componentes()
-    print(f"[OK] Componentes carregados: {', '.join(comp.keys()) or 'nenhum'}\n")
+    print(f"[OK] Módulos acoplados com sucesso: {', '.join(comp.keys()) or 'nenhum'}\n")
 
     sessao = Sessao()
 
